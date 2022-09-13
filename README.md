@@ -28,6 +28,7 @@ Then please mirror-push the class repo into your own repo:
 cd CS525-2022-Fall
 git push --mirror https://github.com/hwxi/CS525-2022-Fall-hwxi
 git clone https://github.com/hwxi/CS525-2022-Fall-hwxi
+cd CS525-2022-Fall-hwxi
 git remote add upstream https://hwxi@github.com/hwxi/CS525-2022-Fall.git
 ```
 
