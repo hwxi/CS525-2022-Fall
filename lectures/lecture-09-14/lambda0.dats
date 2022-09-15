@@ -63,20 +63,24 @@ val K' = TMlam("x", TMlam("y", y))
 
 (* ****** ****** *)
 
-val () = println!("I = ", I)
-val () = println!("K = ", K)
-val () = println!("S = ", S)
-val () = println!("K' = ", K')
-
+(*
 (* ****** ****** *)
+//
 (*
 HX-2022-09-14:
 How to test:
 myatscc lambda0.dats && ./lambda0_dats
 *)
+//
+val () = println!("I = ", I)
+val () = println!("K = ", K)
+val () = println!("S = ", S)
+val () = println!("K' = ", K')
+//
 (* ****** ****** *)
-
 implement main0() = () // HX: it is a dummy
+(* ****** ****** *)
+*)
 
 (* ****** ****** *)
 

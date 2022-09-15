@@ -24,20 +24,40 @@ mylist(a:t@ype) =
 extern
 fun
 {a:t@ype}
+print_myoptn
+(opt: myoptn(a)): void
+extern
+fun
+{a:t@ype}
+print_mylist
+(opt: mylist(a)): void
+//
+extern
+fun
+{a:t@ype}
 fprint_myoptn
 ( out: FILEref
 , opt: myoptn(a)): void
+//
 extern
 fun
 {a:t@ype}
 fprint_mylist
 ( out: FILEref
 , opt: mylist(a)): void
+extern
+fun{}
+fprint_mylist_sep
+(  out: FILEref  ): void
+//
+overload print with print_myoptn
+overload print with print_mylist
 //
 overload fprint with fprint_myoptn
 overload fprint with fprint_mylist
 //
 (* ****** ****** *)
+
 extern
 fun
 {a:t@ype}
@@ -90,6 +110,54 @@ mylist_map
 HX-2022-09-13:
 Implementation should be given below
 *)
+(* ****** ****** *)
+implement
+{a}(*tmp*)
+print_myoptn(opt) =
+fprint_myoptn<a>(stdout_ref, opt)
+implement
+{a}(*tmp*)
+fprint_myoptn
+(out, opt) =
+(
+case+ opt of
+|
+myoptn_nil() =>
+fprint!(out, "none(", ")")
+|
+myoptn_cons(x0) =>
+( fprint(out, "some(");
+  fprint_val<a>(out, x0); fprint(out, ")")))
+//
+(* ****** ****** *)
+implement
+{a}(*tmp*)
+print_mylist(xs) =
+fprint_mylist<a>(stdout_ref, xs)
+implement
+{a}
+fprint_mylist
+(out, xs) =
+loop(xs, 0) where
+{
+fun
+loop
+(xs: mylist(a), i0: int): void =
+(
+case+ xs of
+|
+mylist_nil() => ()
+|
+mylist_cons(x1, xs) =>
+(if i0 > 0
+ then fprint_mylist_sep<>(out);
+ fprint_val<a>(out, x1); loop(xs, i0+1)))
+} (* end of [fprint_mylist(out, xs)] *)
+
+(* ****** ****** *)
+implement
+{(*tmp*)}
+fprint_mylist_sep(out) = fprint(out, "; ")
 (* ****** ****** *)
 
 (* end of [CS525-2022-Fall/mylib/mylib.dats] *)
