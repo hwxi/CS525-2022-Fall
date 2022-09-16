@@ -76,4 +76,4 @@ intlist_append : (intlist, intlist) -> intlist
 //
 (* ****** ****** *)
 
-(* end of [CS525-2022-Fall/assigns/assign00.dats] *)
+(* end of [CS525-2022-Fall/assigns/00/assign00.dats] *)

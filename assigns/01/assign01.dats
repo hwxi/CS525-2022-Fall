@@ -10,10 +10,15 @@
 (* ****** ****** *)
 implement main() = 0 // HX: this is a dummy
 (* ****** ****** *)
-
+//
 typedef
 tvarset = mylist(tvar)
-
+//
+(*
+HX:
+A tvarset is an *ordered* list of tvars
+(that is, strings)
+*)
 (* ****** ****** *)
 
 extern
@@ -23,16 +28,16 @@ FV(t0: term): tvarset
 (* ****** ****** *)
 
 extern
-fun
-tvarset_nil(): tvarset
+fun // empty set
+tvarset_nil(): tvarset 
 extern
-fun
+fun // singleton set
 tvarset_sing(v0: tvar): tvarset
 extern
-fun
+fun // delete an element from a set
 tvarset_del1(tvarset, tvar): tvarset
 extern
-fun
+fun // form the union of two given sets
 tvarset_union(tvarset, tvarset): tvarset
 
 (* ****** ****** *)
