@@ -12,12 +12,15 @@ typedef topr = string
 datatype term =
 //
 | TMint of int
+| TMbtf of bool
 //
 | TMvar of tvar
 | TMlam of (tvar, term)
 | TMapp of (term, term)
 //
 | TMopr of (topr, termlst)
+//
+| TMif0 of (term, term, term)
 //
 where termlst = mylist(term)
 //
@@ -50,6 +53,9 @@ case+ t0 of
 TMint(i0) =>
 fprint!(out, "TMint(", i0, ")")
 |
+TMbtf(b0) =>
+fprint!(out, "TMbtf(", b0, ")")
+|
 TMvar(v0) =>
 fprint!(out, "TMvar(", v0, ")")
 |
@@ -61,6 +67,9 @@ fprint!(out, "TMapp(", t1, ";", t2, ")")
 |
 TMopr(nm, ts) =>
 fprint!(out, "TMopr(", nm, ";", ts, ")")
+|
+TMif0(t1, t2, t3) =>
+fprint!(out, "TMif0(", t1, ";", t2, ";", t3, ")")
 )
 
 (* ****** ****** *)
