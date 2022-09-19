@@ -160,4 +160,31 @@ implement
 fprint_mylist_sep(out) = fprint(out, "; ")
 (* ****** ****** *)
 
+(*
+implement
+{a}//tmp
+mylist_length(xs) =
+(
+case xs of
+| mylist_nil() => 0
+| mylist_cons(_, xs) => 1 + mylist_length<a>(xs)
+)
+*)
+implement
+{a}//tmp
+mylist_length(xs) =
+helper(xs, 0) where
+{
+fun
+helper
+(xs: mylist(a), acc: int): int =
+(
+case xs of
+| mylist_nil() => acc
+| mylist_cons(_, xs) => helper(xs, acc+1)
+)
+}
+
+(* ****** ****** *)
+
 (* end of [CS525-2022-Fall/mylib/mylib.dats] *)
