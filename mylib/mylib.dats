@@ -190,6 +190,11 @@ mylist_tail(xs) =
 (* ****** ****** *)
 
 (*
+(*
+HX-2022-09-19:
+Please avoid this style of
+recursive template implementation.
+*)
 implement
 {a}//tmp
 mylist_length(xs) =
