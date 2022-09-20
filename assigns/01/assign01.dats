@@ -82,7 +82,7 @@ println!("FV(body(K)) = ", FV(lam_body(K))) // x
 val () =
 println!("FV(body(S)) = ", FV(lam_body(S))) // x, y, z
 val () =
-println!("FV(body(K')) = ", FV(lam_body(K'))) // x, y, z
+println!("FV(body(K')) = ", FV(lam_body(K'))) // y
 val () =
 println!("FV(SKK) = ", FV(TMapp(TMapp(S, K), K))) // empty
 

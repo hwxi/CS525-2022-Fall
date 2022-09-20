@@ -64,6 +64,17 @@ fun
 mylist_sing(x0: a): mylist(a)
 
 (* ****** ****** *)
+//
+extern
+fun
+{a:t@ype}
+mylist_head(xs: mylist(a)): (a)
+extern
+fun
+{a:t@ype}
+mylist_tail(xs: mylist(a)): mylist(a)
+//
+(* ****** ****** *)
 
 extern
 fun
@@ -158,6 +169,24 @@ mylist_cons(x1, xs) =>
 implement
 {(*tmp*)}
 fprint_mylist_sep(out) = fprint(out, "; ")
+(* ****** ****** *)
+
+implement
+{a}//tmp
+mylist_sing(x0) =
+mylist_cons(x0, mylist_nil())
+
+(* ****** ****** *)
+//
+implement
+{a}//tmp
+mylist_head(xs) =
+(case- xs of mylist_cons(x0, xs) => x0)
+implement
+{a}//tmp
+mylist_tail(xs) =
+(case- xs of mylist_cons(x0, xs) => xs)
+//
 (* ****** ****** *)
 
 (*
