@@ -10,10 +10,6 @@ list-based set oprations.
 (* ****** ****** *)
 #staload "./../../mylib/mylib.dats"
 (* ****** ****** *)
-#include
-"./../..\
-/lectures/lecture-09-14/lambda0.dats"
-(* ****** ****** *)
 implement main() = 0 // HX: this is a dummy
 (* ****** ****** *)
 typedef tvar = string
@@ -33,6 +29,54 @@ datatype term =
 | TMif0 of (term, term, term)
 //
 where termlst = mylist(term)
+//
+(* ****** ****** *)
+extern
+fun
+print_term(t0:term): void
+extern
+fun
+fprint_term
+(out:FILEref, t0:term): void
+(* ****** ****** *)
+implement
+print_term(t0) =
+fprint_term(stdout_ref, t0)
+(* ****** ****** *)
+implement
+fprint_val<term> = fprint_term
+(* ****** ****** *)
+overload print with print_term
+overload fprint with fprint_term
+(* ****** ****** *)
+//
+implement
+fprint_term
+(out, t0) =
+(
+case+ t0 of
+|
+TMint(i0) =>
+fprint!(out, "TMint(", i0, ")")
+|
+TMbtf(b0) =>
+fprint!(out, "TMbtf(", b0, ")")
+|
+TMvar(v0) =>
+fprint!(out, "TMvar(", v0, ")")
+|
+TMlam(v0, t1) =>
+fprint!(out, "TMlam(", v0, ";", t1, ")")
+|
+TMapp(t1, t2) =>
+fprint!(out, "TMapp(", t1, ";", t2, ")")
+|
+TMopr(nm, ts) =>
+fprint!(out, "TMopr(", nm, ";", ts, ")")
+|
+TMif0(t1, t2, t3) =>
+fprint!(out, "TMif0(", t1, ";", t2, ";", t3, ")")
+)
 //
 (* ****** ****** *)
 //
@@ -70,6 +114,7 @@ TMopr("*", mylist_pair(x, y))
 (* ****** ****** *)
 //
 // 05 points
+extern
 val Y: term // the Y fixed-point operator
 //
 (* ****** ****** *)
@@ -78,6 +123,7 @@ val Y: term // the Y fixed-point operator
 (*
 fact(x) = if x > 0 then x * fact(x-1) else 1
 *)
+extern
 val fact: term // representing the factorial function
 //
 (* ****** ****** *)
@@ -86,8 +132,15 @@ val fact: term // representing the factorial function
 (*
 fibo(x) = if x >= 2 then fibo(x-1)+fibo(x-2) else x
 *)
+extern
 val fibo: term // representing the Fibonacci function
 //
+(* ****** ****** *)
+
+val () = println!("Y = ", Y)
+val () = println!("fact = ", fact)
+val () = println!("fibo = ", fibo)
+
 (* ****** ****** *)
 
 (* end of [CS525-2022-Fall/assigns/assign02.dats] *)

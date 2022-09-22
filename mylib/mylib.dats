@@ -62,6 +62,10 @@ extern
 fun
 {a:t@ype}
 mylist_sing(x0: a): mylist(a)
+extern
+fun
+{a:t@ype}
+mylist_pair(x0: a, y0: a): mylist(a)
 
 (* ****** ****** *)
 //
@@ -170,12 +174,17 @@ implement
 {(*tmp*)}
 fprint_mylist_sep(out) = fprint(out, "; ")
 (* ****** ****** *)
-
+//
 implement
 {a}//tmp
 mylist_sing(x0) =
 mylist_cons(x0, mylist_nil())
-
+implement
+{a}//tmp
+mylist_pair(x0, y0) =
+mylist_cons
+(x0, mylist_cons(y0, mylist_nil()))
+//
 (* ****** ****** *)
 //
 implement
