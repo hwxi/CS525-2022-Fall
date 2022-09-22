@@ -117,33 +117,45 @@ fun{}
 term_map_var(t0: term): term
 extern
 fun{}
+term_map_lam(t0: term): term
+extern
+fun{}
 termlst_map(t0: termlst): termlst
 
 (* ****** ****** *)
 
 implement
 {}//tmp
-term_map(t0) =
-let
-#symload map with term_map
-#symload map with termlst_map
-in//let
+term_map
+(  t0  ) =
+map( t0 ) where
+{
+fun
+map
+(t0: term): term =
 case+ t0 of
 //
 | TMint _ => t0
 | TMbtf _ => t0
 //
-| TMvar _ =>
-  term_map_var(t0)
-| TMlam(tvar, term) =>
-  TMlam(tvar, map(term))
-| TMapp(t1, t2) =>
-  TMapp(map t1, map t2)
+|
+TMvar _ =>
+term_map_var(t0)
+|
+TMlam(tvar, term) =>
+term_map_lam(t0)
+|
+TMapp(t1, t2) =>
+TMapp(map t1, map t2)
 //
-| TMopr(topr, ts) => TMopr(topr, map ts)
+|
+TMopr(topr, ts) =>
+TMopr(topr, termlst_map<>(ts))
 //
-| TMif0(t1, t2, t3) => TMif0(map t1, map t2, map t3)
-end
+|
+TMif0(t1, t2, t3) =>
+TMif0( map t1, map t2, map t3 )
+} (*where*) // end of [term_map(t0)]
 
 (* ****** ****** *)
 
@@ -151,12 +163,18 @@ implement
 {}//tmp
 termlst_map(ts) =
 (
+  maplst(ts)) where
+{
+fun
+maplst(ts: termlst): termlst =
+(
 case+ ts of
 | mylist_nil() =>
   mylist_nil()
 | mylist_cons(t1, ts) =>
-  mylist_cons(term_map(t1), termlst_map(ts))
+  mylist_cons(term_map(t1), maplst(ts))
 )
+} (*where*) // end of [termlst_map(ts)]
 
 (* ****** ****** *)
 
@@ -192,6 +210,17 @@ let
 in//let
 if x0 != x1 then t0 else sub
 end//let
+//
+implement
+term_map_lam<>(t0) =
+let
+  val-TMlam(x1, t1) = t0
+in//let
+if x0 = x1
+then t0 else
+TMlam(x1, term_subst0(t1, x0, sub))
+end//let
+//
 } (*where*) // end of [term_subst0]
 
 (* ****** ****** *)
