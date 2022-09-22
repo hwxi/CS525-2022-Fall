@@ -1,8 +1,12 @@
 (* ****** ****** *)
 (*
+Due: Monday, the 26th of September
+*)
+(* ****** ****** *)
+(*
 HX-2022-09-21:
 This assignment asks you to implement
-list-based set oprations.
+certain lambda-terms.
 *)
 (* ****** ****** *)
 #include

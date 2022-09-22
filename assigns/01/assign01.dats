@@ -1,5 +1,9 @@
 (* ****** ****** *)
 (*
+Due: Monday, the 26th of September
+*)
+(* ****** ****** *)
+(*
 HX-2022-09-19:
 This assignment asks you to implement
 list-based set oprations.
