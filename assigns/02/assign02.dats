@@ -85,9 +85,17 @@ TMlt // less
 (x: term, y: term): term =
 TMopr("<", mylist_pair(x, y))
 fun
+TMgt // greater
+(x: term, y: term): term =
+TMopr(">", mylist_pair(x, y))
+fun
 TMlte // less-equal
 (x: term, y: term): term =
 TMopr("<=", mylist_pair(x, y))
+fun
+TMgte // greater-equal
+(x: term, y: term): term =
+TMopr(">=", mylist_pair(x, y))
 //
 fun
 TMeq // equal
@@ -115,7 +123,7 @@ TMopr("*", mylist_pair(x, y))
 //
 // 05 points
 extern
-val Y: term // the Y fixed-point operator
+fun Y(): term // the Y fixed-point operator
 //
 (* ****** ****** *)
 //
@@ -124,7 +132,7 @@ val Y: term // the Y fixed-point operator
 fact(x) = if x > 0 then x * fact(x-1) else 1
 *)
 extern
-val fact: term // representing the factorial function
+fun fact(): term // representing the factorial function
 //
 (* ****** ****** *)
 //
@@ -133,13 +141,13 @@ val fact: term // representing the factorial function
 fibo(x) = if x >= 2 then fibo(x-1)+fibo(x-2) else x
 *)
 extern
-val fibo: term // representing the Fibonacci function
+fun fibo(): term // representing the Fibonacci function
 //
 (* ****** ****** *)
 
-val () = println!("Y = ", Y)
-val () = println!("fact = ", fact)
-val () = println!("fibo = ", fibo)
+val () = println!("Y = ", Y())
+val () = println!("fact = ", fact())
+val () = println!("fibo = ", fibo())
 
 (* ****** ****** *)
 
