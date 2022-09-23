@@ -91,19 +91,69 @@ val S = TMlam("x", TMlam("y", TMlam("z", TMapp(TMapp(x, z), TMapp(y, z)))))
 val K' = TMlam("x", TMlam("y", y))
 
 (* ****** ****** *)
-
-(*
+//
+fun
+TMadd // addition
+(x: term, y: term): term =
+TMopr("+", mylist_pair(x, y))
+fun
+TMsub // subtraction
+(x: term, y: term): term =
+TMopr("-", mylist_pair(x, y))
+fun
+TMmul // multiplication
+(x: term, y: term): term =
+TMopr("*", mylist_pair(x, y))
+//
+fun
+TMlt // less
+(x: term, y: term): term =
+TMopr("<", mylist_pair(x, y))
+fun
+TMgt // greater
+(x: term, y: term): term =
+TMopr(">", mylist_pair(x, y))
+fun
+TMlte // less-equal
+(x: term, y: term): term =
+TMopr("<=", mylist_pair(x, y))
+fun
+TMgte // greater-equal
+(x: term, y: term): term =
+TMopr(">=", mylist_pair(x, y))
+//
+fun
+TMeq // equal
+(x: term, y: term): term =
+TMopr("=", mylist_pair(x, y))
+fun
+TMneq // not-equal
+(x: term, y: term): term =
+TMopr("!=", mylist_pair(x, y))
+//
 (* ****** ****** *)
 //
-HX-2022-09-14:
-How to test:
-myatscc lambda0.dats && ./lambda0_dats
-*)
+// 05 points
+extern
+fun Y(): term // the Y fixed-point operator
 //
-val () = println!("I = ", I)
-val () = println!("K = ", K)
-val () = println!("S = ", S)
-val () = println!("K' = ", K')
+(* ****** ****** *)
+//
+// 05 points
+(*
+fact(x) = if x > 0 then x * fact(x-1) else 1
+*)
+extern
+fun fact(): term // representing the factorial function
+//
+(* ****** ****** *)
+//
+// 05 points
+(*
+fibo(x) = if x >= 2 then fibo(x-1)+fibo(x-2) else x
+*)
+extern
+fun fibo(): term // representing the Fibonacci function
 //
 (* ****** ****** *)
 implement main0() = () // HX: it is a dummy
@@ -183,6 +233,9 @@ fun
 term_interp(t0: term): term
 extern
 fun
+term_interp_opr(t0: term): term
+extern
+fun
 termlst_interp(ts: termlst): termlst
 
 (* ****** ****** *)
@@ -247,7 +300,9 @@ TMlam
 TMapp(t1, t2) =>
 let
 val t1 = term_interp(t1)
+(*
 val t2 = term_interp(t2)
+*)
 in//let
 case+ t1 of
 |
@@ -259,11 +314,7 @@ _(*non-TMlam*) => TMapp(t1, t2)
 end // let // end of [TMapp]
 //
 |
-TMopr(p1, ts) =>
-TMopr(p1, ts) where
-{
-val ts =
-termlst_interp(ts) }
+TMopr _ => term_interp_opr(t0)
 //
 |
 TMif0(t1, t2, t3) =>
@@ -284,6 +335,105 @@ end // let // end of [TMif0]
 (* ****** ****** *)
 
 implement
+term_interp_opr
+(     t0     ) =
+let
+val-TMopr(p1, ts) = t0
+val ts = termlst_interp(ts)
+in//let
+(
+case+ p1 of
+//
+| "+" =>
+let
+val-
+mylist_cons(t1, ts) = ts
+val-
+mylist_cons(t2, ts) = ts
+val-
+TMint(i1) = t1 and TMint(i2) = t2 in TMint(i1+i2)
+end
+| "-" =>
+let
+val-
+mylist_cons(t1, ts) = ts
+val-
+mylist_cons(t2, ts) = ts
+val-
+TMint(i1) = t1 and TMint(i2) = t2 in TMint(i1-i2)
+end
+| "*" =>
+let
+val-
+mylist_cons(t1, ts) = ts
+val-
+mylist_cons(t2, ts) = ts
+val-
+TMint(i1) = t1 and TMint(i2) = t2 in TMint(i1*i2)
+end
+//
+| "<" =>
+let
+val-
+mylist_cons(t1, ts) = ts
+val-
+mylist_cons(t2, ts) = ts
+val-
+TMint(i1) = t1 and TMint(i2) = t2 in TMbtf(i1 < i2)
+end
+| ">" =>
+let
+val-
+mylist_cons(t1, ts) = ts
+val-
+mylist_cons(t2, ts) = ts
+val-
+TMint(i1) = t1 and TMint(i2) = t2 in TMbtf(i1 > i2)
+end
+| "=" =>
+let
+val-
+mylist_cons(t1, ts) = ts
+val-
+mylist_cons(t2, ts) = ts
+val-
+TMint(i1) = t1 and TMint(i2) = t2 in TMbtf(i1 = i2)
+end
+| "<=" =>
+let
+val-
+mylist_cons(t1, ts) = ts
+val-
+mylist_cons(t2, ts) = ts
+val-
+TMint(i1) = t1 and TMint(i2) = t2 in TMbtf(i1 <= i2)
+end
+| ">=" =>
+let
+val-
+mylist_cons(t1, ts) = ts
+val-
+mylist_cons(t2, ts) = ts
+val-
+TMint(i1) = t1 and TMint(i2) = t2 in TMbtf(i1 >= i2)
+end
+| "!=" =>
+let
+val-
+mylist_cons(t1, ts) = ts
+val-
+mylist_cons(t2, ts) = ts
+val-
+TMint(i1) = t1 and TMint(i2) = t2 in TMbtf(i1 != i2)
+end
+//
+|  _ (*unrecognized*) => TMopr(p1, ts)
+)
+end (*let*) // end of [term_interp_opr]
+
+(* ****** ****** *)
+
+implement
 termlst_interp(ts) =
 (
 case+ ts of
@@ -298,12 +448,13 @@ mylist_cons
 
 (* ****** ****** *)
 
-val
-SKK = TMapp(TMapp(S, K), K)
-
 val () =
-println!("interp(SKK) = ", term_interp(SKK))
+println!
+("interp(fact(10)) = ", term_interp(TMapp(fact(),TMint(10))))
+val () =
+println!
+("interp(fibo(10)) = ", term_interp(TMapp(fibo(),TMint(10))))
 
 (* ****** ****** *)
 
-(* end of [CS525-2022-Fall/lecture/lecture-09-21/lambda0.dats] *)
+(* end of [CS525-2022-Fall/lecture/lecture-09-26/lambda0.dats] *)
