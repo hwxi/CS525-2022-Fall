@@ -229,5 +229,41 @@ case xs of
 }
 
 (* ****** ****** *)
+//
+implement
+{a}//tmp
+mylist_append
+( xs, ys ) =
+mylist_rappend<a>
+(mylist_reverse<a>(xs), ys)
+//
+(* ****** ****** *)
+
+implement
+{a}//tmp
+mylist_reverse
+(   xs   ) =
+mylist_rappend<a>(xs, mylist_nil())
+
+implement
+{a}//tmp
+mylist_rappend
+( xs, ys ) =
+helper(xs, ys) where
+{
+fun
+helper
+( xs: mylist(a)
+, ys: mylist(a)): mylist(a) =
+(
+case xs of
+| mylist_nil() => ys
+|
+mylist_cons
+( x1 , xs ) => helper(xs, mylist_cons(x1, ys))
+)
+}
+
+(* ****** ****** *)
 
 (* end of [CS525-2022-Fall/mylib/mylib.dats] *)
