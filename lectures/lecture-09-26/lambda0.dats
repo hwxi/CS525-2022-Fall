@@ -139,6 +139,11 @@ fun Y(): term // the Y fixed-point operator
 //
 (* ****** ****** *)
 //
+extern
+fun Theta(): term // the Theta fixed-point operator
+//
+(* ****** ****** *)
+//
 // 05 points
 (*
 fact(x) = if x > 0 then x * fact(x-1) else 1
@@ -301,7 +306,7 @@ TMapp(t1, t2) =>
 let
 val t1 = term_interp(t1)
 (*
-val t2 = term_interp(t2)
+val t2 = term_interp(t2) // call-by-value
 *)
 in//let
 case+ t1 of
@@ -448,12 +453,93 @@ mylist_cons
 
 (* ****** ****** *)
 
+(*
 val () =
 println!
 ("interp(fact(10)) = ", term_interp(TMapp(fact(),TMint(10))))
 val () =
 println!
 ("interp(fibo(10)) = ", term_interp(TMapp(fibo(),TMint(10))))
+*)
+
+(* ****** ****** *)
+
+fun
+church_numeral(n: int): term =
+let
+val f = TMvar("f")
+val x = TMvar("x")
+in//let
+TMlam("f", TMlam("x", loop(n, x))) where
+{
+  fun loop(n: int, res: term): term = if n > 0 then loop(n-1, TMapp(f, res)) else res
+}
+end // end of [church_numeral]
+
+(* ****** ****** *)
+
+val num5 = church_numeral(5)
+val (  ) = println!("num5 = ", num5)
+
+(* ****** ****** *)
+
+fun
+church_numeral_eval(n: term): term =
+term_interp(TMapp(TMapp(n, f), x)) where
+{
+  val x = TMint(0)
+  val f = TMlam("n", TMadd(TMvar("n"), TMint(1)))
+}
+
+(* ****** ****** *)
+
+val (  ) =
+println!("eval(num5) = ", church_numeral_eval(num5))
+
+(* ****** ****** *)
+
+(*
+fun mysum(m: int): int
+  if m > 0 then m + mysum(m-1) else 0
+*)
+
+(* ****** ****** *)
+
+// mysum = Theta(lam f.(lam m.if m > 0 then m + f(m-1) else 0))
+// mysum = (lam f.(lam m.if m > 0 then m + f(m-1) else 0))(mysum)
+
+val mysum =
+TMapp
+(
+Theta(),
+(
+TMlam("f",
+TMlam("m",
+TMif0(TMgt(m, TMint(0)), TMadd(m, TMapp(f, TMsub(m, TMint(1)))), TMint(0))))) where
+{
+  val f = TMvar("f")
+  val m = TMvar("m")
+}
+)
+
+(* ****** ****** *)
+
+implement
+Theta() = TMapp(wxy, wxy) where
+{
+//
+val x = TMvar("x")
+val y = TMvar("y")
+//
+val wxy =
+TMlam("x", TMlam("y", TMapp(y, TMapp(TMapp(x, x), y))))
+//
+}(*where*)//end-(implement Theta())
+
+(* ****** ****** *)
+
+val () =
+println!("mysum(100) = ", term_interp(TMapp(mysum, TMint(100))))
 
 (* ****** ****** *)
 
