@@ -23,6 +23,8 @@ TPfun of (type, type)
 |
 TPtup of (type, type)
 //
+where typelst = mylist(type)
+//
 (* ****** ****** *)
 val TPint = TPbas("int")
 val TPbtf = TPbas("bool")
@@ -142,6 +144,11 @@ extern
 fun
 term_oftype1_opr(term, tctx): type
 //
+extern
+fun
+termlst_oftype1
+(ts: termlst, xts: tctx): typelst
+//
 (* ****** ****** *)
 
 implement
@@ -223,6 +230,138 @@ term_oftype1
 val-true = ( tp12 = tp22 ) }
 //
 ) (*case+*) // end of [term_oftype1(t0,xts)]
+
+(* ****** ****** *)
+
+implement
+term_oftype1_var
+(t0, xts) =
+let
+val-TMvar(x) = t0
+in
+find(xts) where
+{
+fun find(xts: tctx): type =
+(
+case- xts of
+| mylist_cons(xt, xts) =>
+  (if x = xt.0 then xt.1 else find(xts))
+)
+}
+end (*let*) // end of [term_oftype1_var]
+
+(* ****** ****** *)
+//
+implement
+term_oftype1_opr
+(t0, xts) =
+let
+//
+val-TMopr(p1, ts) = t0
+val tps = termlst_oftype1(ts, xts)
+//
+in//let
+(
+case- p1 of
+//
+| "+" =>
+let
+val-
+mylist_cons(tp1, tps) = tps
+val-
+mylist_cons(tp2, tps) = tps
+val-true = (tp1 = TPint)
+val-true = (tp2 = TPint) in TPint end
+//
+| "-" =>
+let
+val-
+mylist_cons(tp1, tps) = tps
+val-
+mylist_cons(tp2, tps) = tps
+val-true = (tp1 = TPint)
+val-true = (tp2 = TPint) in TPint end
+//
+| "*" =>
+let
+val-
+mylist_cons(tp1, tps) = tps
+val-
+mylist_cons(tp2, tps) = tps
+val-true = (tp1 = TPint)
+val-true = (tp2 = TPint) in TPint end
+//
+| ">" =>
+let
+val-
+mylist_cons(tp1, tps) = tps
+val-
+mylist_cons(tp2, tps) = tps
+val-true = (tp1 = TPint)
+val-true = (tp2 = TPint) in TPbtf end
+//
+| "<" =>
+let
+val-
+mylist_cons(tp1, tps) = tps
+val-
+mylist_cons(tp2, tps) = tps
+val-true = (tp1 = TPint)
+val-true = (tp2 = TPint) in TPbtf end
+//
+| "=" =>
+let
+val-
+mylist_cons(tp1, tps) = tps
+val-
+mylist_cons(tp2, tps) = tps
+val-true = (tp1 = TPint)
+val-true = (tp2 = TPint) in TPbtf end
+//
+| ">=" =>
+let
+val-
+mylist_cons(tp1, tps) = tps
+val-
+mylist_cons(tp2, tps) = tps
+val-true = (tp1 = TPint)
+val-true = (tp2 = TPint) in TPbtf end
+//
+| "<=" =>
+let
+val-
+mylist_cons(tp1, tps) = tps
+val-
+mylist_cons(tp2, tps) = tps
+val-true = (tp1 = TPint)
+val-true = (tp2 = TPint) in TPbtf end
+//
+| "!=" =>
+let
+val-
+mylist_cons(tp1, tps) = tps
+val-
+mylist_cons(tp2, tps) = tps
+val-true = (tp1 = TPint)
+val-true = (tp2 = TPint) in TPbtf end
+//
+)
+end // let // end of [term_oftype1_opr]
+//
+(* ****** ****** *)
+
+implement
+termlst_oftype1(ts, xts) =
+(
+case+ ts of
+|
+mylist_nil() =>
+mylist_nil()
+|
+mylist_cons(t1, ts) =>
+mylist_cons
+(term_oftype1(t1, xts), termlst_oftype1(ts, xts))
+)
 
 (* ****** ****** *)
 
@@ -593,6 +732,8 @@ TMif0(TMgt(m, TMint(0)), TMadd(m, TMapp(f, TMsub(m, TMint(1)))), TMint(0))) wher
 
 (* ****** ****** *)
 
+val () =
+println!("mysum2: ", term_oftype0(mysum2))
 val () =
 println!("mysum2(100) = ", term_interp0(TMapp(mysum2, TMint(100))))
 
