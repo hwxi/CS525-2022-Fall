@@ -117,7 +117,7 @@ extern
 fun
 {a:t@ype}
 {b:t@ype}
-mylist_map
+mylist_map_cfr
 (xs: mylist(a), f0: a -<cloref1> b): mylist(b)
 
 (* ****** ****** *)
@@ -264,6 +264,22 @@ mylist_cons
 )
 }
 
+(* ****** ****** *)
+//
+implement
+{a}{b}//tmp
+mylist_map_cfr
+( xs, f0 ) = map(xs) where
+{
+fun
+map(xs: mylist(a)): mylist(b) =
+case+ xs of
+|
+mylist_nil() => mylist_nil()
+|
+mylist_cons(x1, xs) => mylist_cons(f0(x1), map(xs))
+} (*where*) // end of [ mylist_map_cfr(xs, f0) ]
+//
 (* ****** ****** *)
 
 (* end of [CS525-2022-Fall/mylib/mylib.dats] *)
