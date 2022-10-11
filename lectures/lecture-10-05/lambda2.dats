@@ -189,7 +189,7 @@ val tp2 =
 term_oftype1(t2, xts)
 val-
 TPfun(tp11, tp12) = tp1
-val-true = ( tp11 = tp2 ) in tp2
+val-true = ( tp11 = tp2 ) in tp12
 end // let // end of [TPapp(t1, t2)]
 //
 |
