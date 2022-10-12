@@ -67,14 +67,14 @@ fprint!(out, "TPtup(", tp1, ";", tp2, ")")
 //
 extern
 fun
-term_equal
+type_equal
 (t1: type, t2: type): bool
-overload = with term_equal
+overload = with type_equal
 //
 (* ****** ****** *)
 //
 implement
-term_equal
+type_equal
 ( t1, t2 ) =
 (
 case+ t1 of
