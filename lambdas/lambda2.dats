@@ -172,12 +172,12 @@ fprint!(out, "T1Mfix(", fnm, ";", ftp, ";", xnm, ";", tm1, ")")
 
 datatype t1val =
 //
-| VALint of int
-| VALbtf of bool
-| VALstr of string
+| T1Vint of int
+| T1Vbtf of bool
+| T1Vstr of string
 //
-| VALlam of (t1erm, tvenv)
-| VALfix of (t1erm, tvenv)
+| T1Vlam of (t1erm, tvenv)
+| T1Vfix of (t1erm, tvenv)
 //
 where
 tvenv = mylist(@(tmvar, t1val))
@@ -209,20 +209,20 @@ fprint_t1val
 (
 case+ tv0 of
 |
-VALint(int) =>
-fprint!(out, "VALint(", int, ")")
+T1Vint(int) =>
+fprint!(out, "T1Vint(", int, ")")
 |
-VALbtf(btf) =>
-fprint!(out, "VALbtf(", btf, ")")
+T1Vbtf(btf) =>
+fprint!(out, "T1Vbtf(", btf, ")")
 |
-VALstr(str) =>
-fprint!(out, "VALstr(", str, ")")
+T1Vstr(str) =>
+fprint!(out, "T1Vstr(", str, ")")
 |
-VALlam(tm0, env) =>
-fprint!(out, "VALlam(", "...", ")")
+T1Vlam(tm0, env) =>
+fprint!(out, "T1Vlam(", "...", ")")
 |
-VALfix(tm0, env) =>
-fprint!(out, "VALfix(", "...", ")")
+T1Vfix(tm0, env) =>
+fprint!(out, "T1Vfix(", "...", ")")
 )
 (* ****** ****** *)
 
@@ -245,6 +245,206 @@ extern
 fun
 t1ermlst_interp1
 (tms: t1ermlst, xvs: tvenv): t1vallst
+
+(* ****** ****** *)
+
+implement
+t1erm_interp0(t0) =
+t1erm_interp1(t0, mylist_nil())
+
+implement
+t1erm_interp1(t0, xvs) =
+(
+case+ t0 of
+//
+| T1Mint(i0) => T1Vint(i0)
+| T1Mbtf(b0) => T1Vbtf(b0)
+| T1Mstr(s0) => T1Vstr(s0)
+//
+|
+T1Mvar _ =>
+t1erm_interp1_var(t0, xvs)
+//
+|
+T1Mlam _ => T1Vlam(t0, xvs)
+|
+T1Mfix _ => T1Vfix(t0, xvs)
+//
+|
+T1Mapp(t1, t2) =>
+let
+val v1 = t1erm_interp1(t1, xvs)
+val v2 = t1erm_interp1(t2, xvs)
+in//let
+case- v1 of
+|
+T1Vlam(T1Mlam(x1, tt), xvs) =>
+t1erm_interp1
+(tt, mylist_cons(@(x1, v2), xvs))
+|
+T1Vfix(T1Mfix(f1, x1, tt), xvs) =>
+t1erm_interp1
+(tt, mylist_cons(@(f1, v1), mylist_cons(@(x1, v2), xvs)))
+end // let // end of [T1Mapp]
+//
+|
+T1Mopr _ => t1erm_interp1_opr(t0, xvs)
+//
+|
+T1Mif0(t1, t2, t3) =>
+let
+val v1 = t1erm_interp1(t1, xvs)
+in//let
+case- v1 of
+|
+T1Vbtf(b1) =>
+if b1 then t1erm_interp1(t2, xvs)
+      else t1erm_interp1(t3, xvs)
+end // let // end of [T1Mif0]
+//
+|
+T1Mlam2
+(x1, tp, t1) => T1Vlam(T1Mlam(x1, t1), xvs)
+|
+T1Mfix2
+(f1, x1, tp, t1) => T1Vfix(T1Mfix(f1, x1, t1), xvs)
+//
+) (* case+ *) // end of [t1erm_interp1(t0, xvs)]
+
+(* ****** ****** *)
+
+implement
+t1ermlst_interp1(ts, xvs) =
+(
+case+ ts of
+|
+mylist_nil() =>
+mylist_nil()
+|
+mylist_cons(t1, ts) =>
+mylist_cons
+(t1erm_interp1(t1, xvs), t1ermlst_interp1(ts, xvs))
+)
+
+(* ****** ****** *)
+
+implement
+t1erm_interp1_var
+(t0, xvs) =
+let
+val-T1Mvar(x) = t0
+in
+find(xvs) where
+{
+fun find(xvs: tvenv): t1val =
+(
+case- xvs of
+| mylist_cons(xv, xvs) =>
+  (if x = xv.0 then xv.1 else find(xvs))
+)
+}
+end (*let*) // end of [t1erm_interp1_var]
+
+(* ****** ****** *)
+
+implement
+t1erm_interp1_opr
+  (tm0, xvs) =
+let
+//
+val-
+T1Mopr(opr, tms) = tm0
+val tvs = t1ermlst_interp1(tms, xvs)
+//
+in//let
+(
+case- opr of
+//
+| "+" =>
+let
+val-
+mylist_cons(tv1, tvs) = tvs
+val-
+mylist_cons(tv2, tvs) = tvs
+val-
+T1Vint(i1) = tv1 and T1Vint(i2) = tv2 in T1Vint(i1+i2)
+end
+| "-" =>
+let
+val-
+mylist_cons(tv1, tvs) = tvs
+val-
+mylist_cons(tv2, tvs) = tvs
+val-
+T1Vint(i1) = tv1 and T1Vint(i2) = tv2 in T1Vint(i1-i2)
+end
+| "*" =>
+let
+val-
+mylist_cons(tv1, tvs) = tvs
+val-
+mylist_cons(tv2, tvs) = tvs
+val-
+T1Vint(i1) = tv1 and T1Vint(i2) = tv2 in T1Vint(i1*i2)
+end
+//
+| "<" =>
+let
+val-
+mylist_cons(tv1, tvs) = tvs
+val-
+mylist_cons(tv2, tvs) = tvs
+val-
+T1Vint(i1) = tv1 and T1Vint(i2) = tv2 in T1Vbtf(i1 < i2)
+end
+| ">" =>
+let
+val-
+mylist_cons(tv1, tvs) = tvs
+val-
+mylist_cons(tv2, tvs) = tvs
+val-
+T1Vint(i1) = tv1 and T1Vint(i2) = tv2 in T1Vbtf(i1 > i2)
+end
+| "=" =>
+let
+val-
+mylist_cons(tv1, tvs) = tvs
+val-
+mylist_cons(tv2, tvs) = tvs
+val-
+T1Vint(i1) = tv1 and T1Vint(i2) = tv2 in T1Vbtf(i1 = i2)
+end
+| "<=" =>
+let
+val-
+mylist_cons(tv1, tvs) = tvs
+val-
+mylist_cons(tv2, tvs) = tvs
+val-
+T1Vint(i1) = tv1 and T1Vint(i2) = tv2 in T1Vbtf(i1 <= i2)
+end
+| ">=" =>
+let
+val-
+mylist_cons(tv1, tvs) = tvs
+val-
+mylist_cons(tv2, tvs) = tvs
+val-
+T1Vint(i1) = tv1 and T1Vint(i2) = tv2 in T1Vbtf(i1 >= i2)
+end
+| "!=" =>
+let
+val-
+mylist_cons(tv1, tvs) = tvs
+val-
+mylist_cons(tv2, tvs) = tvs
+val-
+T1Vint(i1) = tv1 and T1Vint(i2) = tv2 in T1Vbtf(i1 != i2)
+end
+//
+)
+end (*let*) // end of [t1erm_interp_opr(tm0, xvs)]
 
 (* ****** ****** *)
 
