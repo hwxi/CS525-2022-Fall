@@ -327,6 +327,22 @@ term_oftype1
 end
 //
 |
+TMfix
+(f1, x1, t1) =>
+(
+  tp1 ) where
+{
+val
+tp1 = type_new_fun()
+val-
+TPfun(tp11, tp12) = tp1
+val tp2 =
+term_oftype1
+(t1, mylist_cons(@(f1, tp1), mylist_cons(@(x1, tp11), xts)))
+val-true = unify(tp12, tp2)
+}
+//
+|
 TMapp(t1, t2) =>
 let
 val tp1 =
@@ -359,7 +375,11 @@ val-true = unify(tp11, tp2) in tp12
 end // let // end of [TPapp(t1, t2)]
 //
 |
-TMif0(t1, t2, t3) =>
+TMopr _ => term_oftype1_opr(t0, xts)
+//
+|
+TMif0
+(t1, t2, t3) =>
 let
 val tp1 =
 term_oftype1(t1, xts)
@@ -371,7 +391,31 @@ val-true =
 type_unify(tp1, TPbtf)
 val-true = type_unify(tp2, tp3) in tp2 end
 //
-)
+|
+TMlam2
+(x1, tp1, t1) =>
+(
+  TPfun(tp1, tp2) ) where
+{
+val tp2 =
+term_oftype1
+(t1, mylist_cons(@(x1, tp1), xts)) }
+//
+|
+TMfix2
+(f1, x1, tp1, t1) =>
+(
+  tp1 ) where
+{
+val-
+TPfun(tp11, tp12) = tp1
+val tp2 =
+term_oftype1
+(t1, mylist_cons(@(f1, tp1), mylist_cons(@(x1, tp11), xts)))
+val-true = unify(tp12, tp2)
+}
+//
+) (*case+*) // end of [term_oftype1]
 //
 (* ****** ****** *)
 
