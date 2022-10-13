@@ -170,4 +170,82 @@ fprint!(out, "T1Mfix(", fnm, ";", ftp, ";", xnm, ";", tm1, ")")
 //
 (* ****** ****** *)
 
+datatype t1val =
+//
+| VALint of int
+| VALbtf of bool
+| VALstr of string
+//
+| VALlam of (t1erm, tvenv)
+| VALfix of (t1erm, tvenv)
+//
+where
+tvenv = mylist(@(tmvar, t1val))
+
+typedef t1vallst = mylist(t1val)
+
+(* ****** ****** *)
+extern
+fun
+print_t1val(t1val): void
+extern
+fun
+fprint_t1val
+(out:FILEref, tv0:t1val): void
+(* ****** ****** *)
+implement
+print_t1val(tv0) =
+fprint_t1val(stdout_ref, tv0)
+(* ****** ****** *)
+implement
+fprint_val<t1val> = fprint_t1val
+(* ****** ****** *)
+overload print with print_t1val
+overload fprint with fprint_t1val
+(* ****** ****** *)
+implement
+fprint_t1val
+(out, tv0) =
+(
+case+ tv0 of
+|
+VALint(int) =>
+fprint!(out, "VALint(", int, ")")
+|
+VALbtf(btf) =>
+fprint!(out, "VALbtf(", btf, ")")
+|
+VALstr(str) =>
+fprint!(out, "VALstr(", str, ")")
+|
+VALlam(tm0, env) =>
+fprint!(out, "VALlam(", "...", ")")
+|
+VALfix(tm0, env) =>
+fprint!(out, "VALfix(", "...", ")")
+)
+(* ****** ****** *)
+
+extern
+fun
+t1erm_interp0(t1erm): t1val
+extern
+fun
+t1erm_interp1
+(tm0: t1erm, xvs: tvenv): t1val
+extern
+fun
+t1erm_interp1_var
+(tm0: t1erm, xvs: tvenv): t1val
+extern
+fun
+t1erm_interp1_opr
+(tm0: t1erm, xvs: tvenv): t1val
+extern
+fun
+t1ermlst_interp1
+(tms: t1ermlst, xvs: tvenv): t1vallst
+
+(* ****** ****** *)
+
 (* end of [lambda2.dats] *)
