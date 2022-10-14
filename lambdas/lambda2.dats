@@ -1034,8 +1034,10 @@ end
 )
 end (*let*) // end of [t1erm_oftype1_opr(tm0, xts)]
 (* ****** ****** *)
+(*
 val () =
 println!("mysum: ", t1erm_oftype0(mysum))
+*)
 (* ****** ****** *)
 //
 val
