@@ -490,8 +490,14 @@ end
 let
 val-
 mylist_cons(tv1, tvs) = tvs
-val-T1Vstr(str) = tv1 in print(str); T1Vnil()
+in
+  case- tv1 of
+  | T1Vstr(str) => let val () = print(str) in T1Vnil() end
 end
+//
+| "showval" =>
+let
+val-mylist_cons(tv1, tvs) = tvs in print(tv1); T1Vnil() end
 //
 )
 end (*let*) // end of [t1erm_interp_opr(tm0, xvs)]
