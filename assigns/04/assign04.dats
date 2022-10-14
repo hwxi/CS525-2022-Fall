@@ -32,8 +32,8 @@ fun
 loop(i: int): bool =
 if
 (i*i > n)
-then false
-else (if n % i = 0 then true else loop(i+1))
+then true
+else (if n % i = 0 then false else loop(i+1))
 }
 //
 (* ****** ****** *)
