@@ -454,5 +454,84 @@ end
 end (*let*) // end of [t1erm_interp_opr(tm0, xvs)]
 
 (* ****** ****** *)
+//
+fun
+T1Madd // addition
+(a1: t1erm, a2: t1erm): t1erm =
+T1Mopr("+", mylist_pair(a1, a2))
+fun
+T1Msub // subtraction
+(a1: t1erm, a2: t1erm): t1erm =
+T1Mopr("-", mylist_pair(a1, a2))
+fun
+T1Mmul // multiplication
+(a1: t1erm, a2: t1erm): t1erm =
+T1Mopr("*", mylist_pair(a1, a2))
+//
+fun
+T1Mlt // less
+(a1: t1erm, a2: t1erm): t1erm =
+T1Mopr("<", mylist_pair(a1, a2))
+fun
+T1Mgt // greater
+(a1: t1erm, a2: t1erm): t1erm =
+T1Mopr(">", mylist_pair(a1, a2))
+fun
+T1Mlte // less-equal
+(a1: t1erm, a2: t1erm): t1erm =
+T1Mopr("<=", mylist_pair(a1, a2))
+fun
+T1Mgte // greater-equal
+(a1: t1erm, a2: t1erm): t1erm =
+T1Mopr(">=", mylist_pair(a1, a2))
+//
+fun
+T1Meq // equal
+(a1: t1erm, a2: t1erm): t1erm =
+T1Mopr("=", mylist_pair(a1, a2))
+fun
+T1Mneq // not-equal
+(a1: t1erm, a2: t1erm): t1erm =
+T1Mopr("!=", mylist_pair(a1, a2))
+//
+(* ****** ****** *)
+//
+fun
+Theta() =
+T1Mapp(wxy, wxy) where
+{
+//
+val x = T1Mvar("x")
+val y = T1Mvar("y")
+val z = T1Mvar("z")
+//
+val wxy =
+T1Mlam("x", T1Mlam("y",
+T1Mapp(y,
+T1Mlam("z", T1Mapp(T1Mapp(T1Mapp(x, x), y), z)))))
+//
+}(*where*)//end-of-[fun Theta()]
+//
+val
+mysum =
+T1Mapp
+(
+Theta(),
+(
+T1Mlam("f",
+T1Mlam("m",
+T1Mif0(
+T1Mgt(m, T1Mint(0)),
+T1Madd(m, T1Mapp(f, T1Msub(m, T1Mint(1)))), T1Mint(0))))) where
+{
+  val f = T1Mvar("f")
+  val m = T1Mvar("m")
+}
+)
+//
+val () =
+println!("mysum(100) = ", t1erm_interp0(T1Mapp(mysum, T1Mint(100))))
+//
+(* ****** ****** *)
 
 (* end of [lambda2.dats] *)
