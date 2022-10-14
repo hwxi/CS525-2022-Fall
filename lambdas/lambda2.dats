@@ -55,6 +55,10 @@ datatype t1erm =
 //
 | T1Mopr of (tmopr, t1ermlst)
 //
+| T1Mfst of (t1erm) // first projection
+| T1Msnd of (t1erm) // second projection
+| T1Mtup of (t1erm, t1erm) // pair formation
+//
 | T1Mif0 of (t1erm, t1erm, t1erm)
 //
 |
@@ -159,6 +163,16 @@ T1Mopr(opr, tms) =>
 fprint!(out, "T1Mopr(", opr, ";", tms, ")")
 //
 |
+T1Mfst(tm1) =>
+fprint!(out, "T1Mfst(", tm1, ")")
+|
+T1Msnd(tm1) =>
+fprint!(out, "T1Msnd(", tm1, ")")
+|
+T1Mtup(tm1, tm2) =>
+fprint!(out, "T1Mtup(", tm1, ";", tm2, ")")
+//
+|
 T1Mif0(tm1, tm2, tm3) =>
 fprint!(out, "T1Mif0(", tm1, ";", tm2, ";", tm3, ")")
 //
@@ -182,6 +196,8 @@ datatype t1val =
 | T1Vint of int
 | T1Vbtf of bool
 | T1Vstr of string
+//
+| T1Vtup of (t1val, t1val)
 //
 | T1Vlam of (t1erm, tvenv)
 | T1Vfix of (t1erm, tvenv)
@@ -225,11 +241,15 @@ fprint!(out, "T1Vbtf(", btf, ")")
 T1Vstr(str) =>
 fprint!(out, "T1Vstr(", str, ")")
 |
+T1Vtup(tv1, tv2) =>
+fprint!
+(out, "T1Vtup(", tv1, ";", tv2, ")")
+|
 T1Vlam(tm0, env) =>
-fprint!(out, "T1Vlam(", "...", ")")
+fprint!(out, "T1Vlam(", tm0, ";", "...", ")")
 |
 T1Vfix(tm0, env) =>
-fprint!(out, "T1Vfix(", "...", ")")
+fprint!(out, "T1Vfix(", tm0, ";", "...", ")")
 )
 (* ****** ****** *)
 
@@ -262,7 +282,7 @@ t1erm_interp1(tm0, mylist_nil())
 implement
 t1erm_interp1(tm0, xvs) =
 (
-case+ tm0 of
+case tm0 of
 //
 | T1Mint(i0) => T1Vint(i0)
 | T1Mbtf(b0) => T1Vbtf(b0)
@@ -741,7 +761,7 @@ implement
 t1erm_oftype1
 (  tm0, xts  ) =
 (
-case+ tm0 of
+case tm0 of
 //
 | T1Mint _ => T1Pint
 | T1Mbtf _ => T1Pbtf
