@@ -32,6 +32,13 @@ and
 t1ypelst = mylist(t1ype)
 //
 (* ****** ****** *)
+val T1Pint = T1Pbas("int")
+val T1Pbtf = T1Pbas("bool")
+val T1Pchr = T1Pbas("char")
+val T1Pnil = T1Pbas("unit")
+val T1Pflt = T1Pbas("float")
+val T1Pstr = T1Pbas("string")
+(* ****** ****** *)
 typedef tmvar = string
 typedef tmopr = string
 (* ****** ****** *)
