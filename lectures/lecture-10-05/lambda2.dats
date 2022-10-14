@@ -638,7 +638,7 @@ VALint(i1) = v1 and VALint(i2) = v2 in VALbtf(i1 != i2)
 end
 //
 )
-end (*let*) // end of [term_interp_opr]
+end (*let*) // end of [term_interp1_opr]
 
 (* ****** ****** *)
 //
