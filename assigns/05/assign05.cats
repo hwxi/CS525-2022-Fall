@@ -1,0 +1,46 @@
+(* ****** ****** *)
+(*
+Due: Monday, the 24th of October
+*)
+(* ****** ****** *)
+(*
+HX-2022-10-19: 10 points
+Please follow the example 'fact_out.c' to
+implement the 'fibo' function defined below:
+fun fibo(x: int) =
+  if x >= 2 then fibo(x-2)+fibo(x-1) else x
+More precisely, please implement a function
+'fibo' in C of the following type that computes
+Fibonacci numbers (as the one implemented in ATS):
+extern lamval1 fibo(x: lamval1)
+*)
+(* ****** ****** *)
+(*
+HX-2022-10-19: 2- points
+Please follow the example 'fact_out.c' to
+implement the isPrime function below:
+//
+fun
+isPrime
+(n: int): bool =
+loop( 2 ) where
+{
+fun
+loop(i: int): bool =
+if
+(i*i > n)
+then true
+else (if n % i = 0 then false else loop(i+1))
+}
+//
+Please note that the C version of [isPrime] should
+be given the following type:
+//
+extern lamval1 isPrime(x: lamval1)
+//
+Also note that you should manually lambda-lift [loop]
+to make it a top-level function.
+*)
+(* ****** ****** *)
+
+(* end of [CS525-2022-Fall/assigns/assign05.cats] *)

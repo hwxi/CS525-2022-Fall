@@ -16,9 +16,6 @@ mymalloc(size_t n) {
 
 /* ****** ****** */
 
-
-/* ****** ****** */
-
 extern
 lamval1
 LAMVAL_print(lamval1 x)
@@ -39,10 +36,12 @@ LAMVAL_print(lamval1 x)
 
 /* ****** ****** */
 
-
 /*
-  fact(x) = if x > 0 then x * fact(x-1) else 1
+fun
+fact(x) = if x > 0 then x * fact(x-1) else 1
 */
+
+/* ****** ****** */
 
 lamval1
 fact(lamval1 x)

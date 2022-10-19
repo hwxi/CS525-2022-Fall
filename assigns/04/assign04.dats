@@ -1,6 +1,6 @@
 (* ****** ****** *)
 (*
-Due: Monday, the 19th of October
+Due: Wednesday, the 19th of October
 *)
 (* ****** ****** *)
 (*
