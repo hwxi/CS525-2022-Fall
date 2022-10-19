@@ -16,7 +16,7 @@ extern lamval1 fibo(x: lamval1)
 *)
 (* ****** ****** *)
 (*
-HX-2022-10-19: 2- points
+HX-2022-10-19: 20 points
 Please follow the example 'fact_out.c' to
 implement the isPrime function below:
 //
