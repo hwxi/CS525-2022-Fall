@@ -49,12 +49,14 @@ f(i2, j2).
 Problem 3:
 HX-2022-10-26: 10 points
 Call 'stream_fenum2' on lam(i, j) => (i+2)*(j+2) to generate
-a stream of compound numbers; then build a stream (thePrimes)
-that enumerates all the natural numbers that are not in the stream
-of compound numbers.
+a stream (theCompounds) of compound numbers; then build a stream
+(thePrimes) that enumerates all the natural numbers that are not
+in the stream of compound numbers.
 *)
 extern
 val thePrimes: stream(int)
+extern
+val theCompunds: stream(int)
 
 (* ****** ****** *)
 
