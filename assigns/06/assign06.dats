@@ -1,8 +1,12 @@
 (* ****** ****** *)
+(*
+Due: Wednesday, the 2nd of November
+*)
+(* ****** ****** *)
 #include
 "share/atspre_staload.hats"
 (* ****** ****** *)
-typedef int2 = (int, int)
+typedef int2 = @(int, int) // for int-pairs
 (* ****** ****** *)
 //
 (*
