@@ -1093,7 +1093,7 @@ T2Isnd of (t2box) // second projection
 T2Itup of (t2box, t2box) // pair formation
 //
 |
-T2Iif0 of (t2box, t2cmp, t2cmp)
+) of (t2box, t2bndlst, t2bndlst
 //
 and
 t2bnd =
