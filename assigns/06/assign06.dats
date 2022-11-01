@@ -60,4 +60,4 @@ val theCompunds: stream(int)
 
 (* ****** ****** *)
 
-(* end of [assign06.dats] *)
+(* end of [assigns/assign06.dats] *)
