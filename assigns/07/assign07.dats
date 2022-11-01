@@ -46,7 +46,7 @@ end // end of [val]
 (*
 fun
 fibo(n: int): int =
-if n > 0 then fibo(n-2)+fibo(n-1) else n
+if n >= 2 then fibo(n-2)+fibo(n-1) else n
 *)
 (* ****** ****** *)
 //
