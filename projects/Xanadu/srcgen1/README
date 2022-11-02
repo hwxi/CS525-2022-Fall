@@ -1,0 +1,19 @@
+############ Start of [README] ############
+
+############
+# xutil:
+############
+
+For utilities needed by xats that are platform-dependent.
+
+############
+# xcomp:
+############
+
+For the ATS/Xanadu compiler proper. Directly using libc-functions
+should be avoided (but it is not regarded as a big issue as we could
+always make fixes later).
+
+############ Finish of [README] ############
+
+
