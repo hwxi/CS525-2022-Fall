@@ -191,6 +191,9 @@ fun
 trans1m_d1eclist: d1eclist -> t1dclist
 //
 (* ****** ****** *)
+fun
+trans1m_main_fun: d1eclist -> t1ermopt
+(* ****** ****** *)
 //
 fun
 project_main0

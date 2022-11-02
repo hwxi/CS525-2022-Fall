@@ -1028,6 +1028,8 @@ mylist_cons
 
 in(*in-of-local*)
 
+(* ****** ****** *)
+
 implement
 trans1m_d1eclist
   (d1cs) =
@@ -1060,6 +1062,68 @@ end (*let*) // end-of(D1Cfundecl)
 | _(*rest-of-d1ecl*) => trans1m_d1eclist(d1cs)
 )
 ) (*case+*) // end of [trans1m_d1eclist(d1cs)]
+
+(* ****** ****** *)
+
+implement
+trans1m_main_fun
+  (d1cs) =
+(
+case+ d1cs of
+|
+list_nil() =>
+myoptn_nil()
+|
+list_cons(d1c0, d1cs) =>
+(
+case+
+d1c0.node() of
+|
+D1Cfundclst
+(_, _, _, f1ds) =>
+(
+f0_f1ds(f1ds)) where
+{
+//
+fun
+f0_f1d0
+( f1d0
+: d1fundecl): t1ermopt =
+let
+val+
+D1FUNDECL(rcd) = f1d0
+in//let
+case+ rcd.def of
+| None() =>
+  myoptn_nil()
+| Some(d1e) =>
+  myoptn_cons(trans1m_d1exp(d1e))
+end (*let*) // end of [f0_f1d0(f1d0)]
+//
+and
+f0_f1ds
+( f1ds
+: d1fundeclist): t1ermopt =
+(
+case+ f1ds of
+|
+list_nil() =>
+trans1m_main_fun(d1cs)
+|
+list_cons(f1d0, f1ds) =>
+if
+ismain(f1d0)
+then
+f0_f1d0(f1d0) else f0_f1ds(f1ds)
+) (*case+*) // end of [f0_f1ds(f1ds)]
+//
+}
+|
+_(*non-D1Cfundclst*) => trans1m_main_fun(d1cs)
+)
+) (* case+*) // end of [trans1m_main_fun(d1cs)]
+
+(* ****** ****** *)
 
 end (*local*) // end of [local(trans1m_d1eclist)]
 
