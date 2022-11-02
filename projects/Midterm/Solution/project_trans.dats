@@ -809,40 +809,213 @@ case+ dopt of
 //
 (* ****** ****** *)
 
-implement
-trans1m_d1ecl
-  (d1cl) =
-(
+local
+
+fun
+ismain
+( f1d0
+: d1fundecl): bool =
+let
+val+
+D1FUNDECL
+(rcd) = f1d0
+//
+val nam = rcd.nam
+//
+in
 case+
-d1cl.node() of
-| _(*rest-of-d1ecl*) => T1Dnone(d1cl)
-) where
-{
-(*
-val () =
-println!("trans1m_d1ecl: d1cl = ", d1cl)
-*)
-} (*where*) // end of [trans1m_d1ecl(d1cl)]
+nam.node() of
+|
+T_IDENT_alp
+(nam) =>
+(nam = "main") | _ => false
+end (*let*) // end of [ismain]
 
 (* ****** ****** *)
-//
-implement
-trans1m_d1eclist
-  (dcls) =
+
+fun
+f0_v1d0
+( v1d0
+: d1valdecl): t1dcl =
 (
-case+ dcls of
+T1DCLbind
+(xid, def)) where
+{
+val+
+D1VALDECL(rcd) = v1d0
+//
+val xid =
+let
+val
+d1p = rcd.pat
+in
+case-
+d1p.node() of
+|
+D1Pid0(tok) =>
+(
+case-
+tok.node() of
+|
+T_IDENT_alp(nam) => nam
+|
+T_IDENT_sym(nam) => nam
+)
+end : t1var // end-of-val
+//
+val def =
+(
+case-
+rcd.def of
+Some(d1e) =>
+trans1m_d1exp(d1e)): t1erm
+//
+} (*where*) // end of [f0_v1d0(v1d0)]
+
+and
+f0_v1ds
+( v1ds
+: d1valdeclist
+) : t1dclist =
+(
+case+ v1ds of
+| list_nil() =>
+  mylist_nil()
+| list_cons
+  (v1d0, v1ds) =>
+  mylist_cons
+  (f0_v1d0(v1d0), f0_v1ds(v1ds))
+) (*case+*) // end of [f0_v1ds(v1ds)]
+
+(* ****** ****** *)
+
+fun
+f0_f1d0
+( f1d0
+: d1fundecl
+) : t1dcl =
+let
+val+
+D1FUNDECL(rcd) = f1d0
+//
+val
+nam = rcd.nam
+//
+val fid0 =
+(
+case-
+nam.node() of
+|
+T_IDENT_alp(nam) => nam
+|
+T_IDENT_sym(nam) => nam
+) : t1var // end of [val]
+//
+val farg =
+trans1m_f1as_tvar(rcd.arg)
+val topt =
+trans1m_f1as_type(rcd.arg)
+//
+val body =
+(
+case-
+rcd.def of
+|
+Some(d1e0) =>
+trans1m_d1exp(d1e0)): t1erm
+//
+in
+(
+T1DCLbind(fid0, fdef)) where
+{
+val fdef =
+(
+case+ rcd.res of
+|
+EFFS1EXPnone() =>
+(
+T1Mfix
+( fid0
+, farg, topt, body, tres)
+) where
+{
+  val tres = myoptn_nil()
+}
+|
+EFFS1EXPsome(s1e0) =>
+(
+T1Mfix
+( fid0
+, farg, topt, body, tres)
+) where
+{
+  val tres =
+  myoptn_cons
+  ( trans1m_s1exp(s1e0) ) }
+) : t1erm // end-of-val(body)
+}
+end (*let*) // end of [f0_f1d0(f1d0)]
+
+and
+f0_f1ds
+( f1ds
+: d1fundeclist
+) : t1dclist =
+(
+case+ f1ds of
 |
 list_nil() =>
 mylist_nil()
 |
-list_cons(d1cl, dcls) =>
-mylist_cons(t1d1, t1ds) where
-{
-  val t1d1 = trans1m_d1ecl(d1cl)
-  val t1ds = trans1m_d1eclist(dcls)
-}
-) (*case+*) // end of [trans1m_d1eclist(dcls)]
-//
+list_cons
+(f1d0, f1ds) =>
+(
+if
+ismain(f1d0)
+then
+mylist_nil(*void*)
+else
+mylist_cons
+(f0_f1d0(f1d0), mylist_nil(*void*)))
+) (*case+*) // end of [f0_f1ds(f1ds)]
+
+in(*in-of-local*)
+
+implement
+trans1m_d1eclist
+  (d1cs) =
+(
+case+ d1cs of
+|
+list_nil() =>
+mylist_nil()
+|
+list_cons(d1c0, d1cs) =>
+(
+case+
+d1c0.node() of
+|
+D1Cvaldclst(_, _, v1ds) =>
+let
+  val t1ds = f0_v1ds(v1ds)
+in
+  mylist_append
+  (t1ds, trans1m_d1eclist(d1cs))
+end (*let*) // end-of(D1Cvaldecl)
+|
+D1Cfundclst(_, _, _, f1ds) =>
+let
+  val f1ds = f0_f1ds(f1ds)
+in
+  mylist_append
+  (f1ds, trans1m_d1eclist(d1cs))
+end (*let*) // end-of(D1Cfundecl)
+| _(*rest-of-d1ecl*) => trans1m_d1eclist(d1cs)
+)
+) (*case+*) // end of [trans1m_d1eclist(d1cs)]
+
+end (*local*) // end of [local(trans1m_d1eclist)]
+
 (* ****** ****** *)
 
 (* end of [CS525-2022-Fall/Midterm_project_trans.sats] *)

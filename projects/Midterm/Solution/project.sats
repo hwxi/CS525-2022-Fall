@@ -84,9 +84,11 @@ typedef t1var = string
 datatype
 t1dcl =
 |
-T1Dbind of (t1var, t1erm)
+T1DCLbind of (t1var, t1erm)
+(*
 |
-T1Dnone of (d1ecl(*unsupported*))
+T1DCLnone of (d1ecl(*unsupported*))
+*)
 //
 and
 t1erm =
