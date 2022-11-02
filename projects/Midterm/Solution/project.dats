@@ -168,7 +168,8 @@ project_main0
 let
 //
 val
-XATSHOME = "./Xanadu"
+XATSHOME =
+"./../../Xanadu"
 //
 val
 ((*void*)) =
