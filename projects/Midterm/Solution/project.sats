@@ -91,13 +91,19 @@ T1Dnone of (d1ecl(*unsupported*))
 and
 t1erm =
 //
+| T1Mnil of ()
+//
 | T1Mint of int
 | T1Mbtf of bool
 | T1Mstr of string
 //
-| T1Mvar of t1var
-| T1Mlam of (t1var, t1erm)
-| T1Mapp of (t1erm, t1erm)
+|
+T1Mvar of t1var
+|
+T1Mlam of
+(t1var, t1ypeopt, t1erm)
+|
+T1Mapp of (t1erm, t1erm)
 //
 |
 T1Mopr of
@@ -106,6 +112,22 @@ T1Mopr of
 |
 T1Mif0 of
 (t1erm, t1erm, t1ermopt)
+//
+|
+T1Mfst of (t1erm)
+|
+T1Msnd of (t1erm)
+|
+T1Mtup of (t1erm, t1erm)
+//
+|
+T1Mseq of (t1ermlst)
+//
+|
+T1Mfix of
+( t1var
+, t1var, t1ypeopt(*arg*)
+, t1erm, t1ypeopt(*res*))
 //
 |
 T1Mlet of (t1dclist, t1erm)

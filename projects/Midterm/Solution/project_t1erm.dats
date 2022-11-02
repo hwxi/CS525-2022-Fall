@@ -16,6 +16,9 @@
 (* ****** ****** *)
 //
 implement
+fprint_val<t1ype> = fprint_t1ype
+//
+implement
 fprint_val<t1erm> = fprint_t1erm
 implement
 fprint_val<t1dcl> = fprint_t1dcl
@@ -36,6 +39,11 @@ fprint_t1erm(out, t1m0) =
 (
 //
 case+ t1m0 of
+//
+|
+T1Mnil() =>
+fprint!(out, "T1Mnil(", ")")
+//
 |
 T1Mint(int) =>
 fprint!(out, "T1Mint(", int, ")")
@@ -50,24 +58,52 @@ fprint!(out, "T1Mstr(", str, ")")
 T1Mvar(t1v1) =>
 fprint!(out, "T1Mvar(", t1v1, ")")
 |
-T1Mlam(t1v1, t1m2) =>
-fprint!(out, "T1Mlam(", t1v1, ";", t1m2, ")")
+T1Mlam(t1vx, targ, t1m1) =>
+fprint!
+( out, "T1Mlam("
+, t1vx, ";", targ, ";", t1m1, ")")
 |
 T1Mapp(t1m1, t1m2) =>
-fprint!(out, "T1Mapp(", t1m1, ";", t1m2, ")")
+fprint!
+(out, "T1Mapp(", t1m1, ";", t1m2, ")")
 //
 |
-T1Mopr(t1m1, t1ms) =>
-fprint!(out, "T1Mopr(", t1m1, ";", t1ms, ")")
+T1Mfst(t1m1) =>
+fprint!(out, "T1Mfst(", t1m1, ")")
+|
+T1Msnd(t1m1) =>
+fprint!(out, "T1Msnd(", t1m1, ")")
+|
+T1Mtup(t1m1, t1m2) =>
+fprint!
+(out, "T1Mtup(", t1m1, ";", t1m2, ")")
+//
+|
+T1Mseq(t1ms) =>
+fprint!(out, "T1Mseq(", t1ms, ")")
+//
+|
+T1Mopr(topr, t1ms) =>
+fprint!
+(out, "T1Mopr(", topr, ";", t1ms, ")")
 //
 |
 T1Mif0
 (t1m1, t1m2, opt3) =>
-fprint!(out, "T1Mif0(", t1m1, ";", t1m2, ";", opt3)
+fprint!
+(out, "T1Mif0(", t1m1, ";", t1m2, ";", opt3)
 //
 |
 T1Mlet(dcls, t1m1) =>
 fprint!(out, "T1Mlet(", dcls, ";", t1m1)
+//
+|
+T1Mfix
+( t1vf, t1vx
+, targ, t1m1, tres) =>
+fprint!
+( out, "T1Mfix("
+, t1vf, ";", t1vx, ";", targ, ";", t1m1, ";", tres, ")")
 //
 |
 T1Manno(t1m1, t1p2) =>

@@ -42,6 +42,9 @@ fprint_t1ype(out, t1p0) =
 (
 case+ t1p0 of
 |
+T1Pnil() =>
+fprint!(out, "T1Pnil(", ")")
+|
 T1Pbas(tpnm) =>
 fprint!(out, "T1Pbas(", tpnm, ")")
 |

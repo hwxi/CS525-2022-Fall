@@ -43,14 +43,6 @@ UN = "prelude/SATS/unsafe.sats"
 //
 extern
 fun
-xatsopt_strunq
-( source // "<string>" -> <string>
-: string): string = "ext#xatsopt_strunq"
-//
-(* ****** ****** *)
-//
-extern
-fun
 the_fixity_load
 (
 XATSHOME: string
