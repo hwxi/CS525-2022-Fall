@@ -86,10 +86,10 @@ fprint_t1dcl(out, tdcl) =
 //
 case+ tdcl of
 |
-T1Cbind(t1v1, t1m2) =>
-fprint!(out, "T1Cbind(", t1v1, ";",  t1m2, ")")
+T1Dbind(t1v1, t1m2) =>
+fprint!(out, "T1Dbind(", t1v1, ";",  t1m2, ")")
 | // HX: it is for error indcation:
-T1Cnone(d1cl) => fprint!(out, "T1Cnone(", d1cl, ")")
+T1Dnone(d1cl) => fprint!(out, "T1Dnone(", d1cl, ")")
 //
 ) (*case+*) // end of [fprint_t1dcl(out, tdcl)]
 //

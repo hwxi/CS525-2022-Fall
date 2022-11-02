@@ -81,9 +81,9 @@ typedef t1var = string
 datatype
 t1dcl =
 |
-T1Cbind of (t1var, t1erm)
+T1Dbind of (t1var, t1erm)
 |
-T1Cnone of (d1ecl(*unsupported*))
+T1Dnone of (d1ecl(*unsupported*))
 //
 and
 t1erm =
@@ -141,27 +141,33 @@ overload fprint with fprint_t1erm
 (* ****** ****** *)
 //
 fun
-trans_s1exp: s1exp -> t1ype
+trans1m_s1exp: s1exp -> t1ype
 fun
-trans_s1explst: s1explst -> t1ypelst
+trans1m_s1explst: s1explst -> t1ypelst
 fun
-trans_s1expopt: s1expopt -> t1ypeopt
+trans1m_s1expopt: s1expopt -> t1ypeopt
 //
 (* ****** ****** *)
 //
 fun
-trans_d1exp: d1exp -> t1erm
+trans1m_d1exp: d1exp -> t1erm
 fun
-trans_d1explst: d1explst -> t1ermlst
+trans1m_d1explst: d1explst -> t1ermlst
 fun
-trans_d1expopt: d1expopt -> t1ermopt
+trans1m_d1expopt: d1expopt -> t1ermopt
 //
 (* ****** ****** *)
 //
 fun
-trans_d1ecl: d1ecl -> t1dcl
+trans1m_d1ecl: d1ecl -> t1dcl
 fun
-trans_d1ecllst: d1eclist -> t1dclist
+trans1m_d1eclist: d1eclist -> t1dclist
+//
+(* ****** ****** *)
+//
+fun
+project_main0
+{n:int | n >= 1}(int(n), !argv(n)): void
 //
 (* ****** ****** *)
 
