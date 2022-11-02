@@ -18,6 +18,8 @@
 implement
 fprint_val<t1ype> = fprint_t1ype
 //
+(* ****** ****** *)
+//
 implement
 fprint_val<t1erm> = fprint_t1erm
 implement
