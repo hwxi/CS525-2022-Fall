@@ -18,6 +18,9 @@
 datatype t1ype =
 //
 |
+T1Pnil of ()
+//
+|
 T1Pbas of tpbas
 |
 T1Pext of tpVar

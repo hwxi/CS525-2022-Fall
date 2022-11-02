@@ -26,6 +26,147 @@ implement
 fprint_val<t1dcl> = fprint_t1dcl
 //
 (* ****** ****** *)
+
+local
+
+(* ****** ****** *)
+typedef
+tpcnm = string
+(* ****** ****** *)
+val
+the_tpcon_lst =
+$list{string}
+( "*"
+, "->"
+) (* the_tpcon_list *)
+(* ****** ****** *)
+overload .name
+with $SYM.symbol_get_name
+(* ****** ****** *)
+
+fun
+istpc
+(nm0: string): bool =
+(
+auxlst(nm0, the_tpcon_lst)
+) where
+{
+fun
+auxlst
+( nm0: string
+, nms: List0(string)): bool =
+(
+case+ nms of
+| list_nil() => false
+| list_cons(nm1, nms) =>
+  if (nm0 = nm1) then true else auxlst(nm0, nms)
+)
+} (* end of [istpc] *)
+
+(* ****** ****** *)
+
+fun
+f0_tpc0
+( s1e0
+: s1exp)
+: Option(tpcnm) =
+(
+case+
+s1e0.node() of
+|
+S1Eid0(sym) =>
+let
+val nm0 = sym.name()
+in
+if
+istpc(nm0)
+then Some(nm0) else None()
+end // end of [S1Eid]
+|
+_ (*non-S1Eid*) => None((*void*))
+)
+
+(* ****** ****** *)
+
+fun
+f0_id0
+(s1e0: s1exp): t1ype =
+(
+case-
+s1e0.node() of
+|
+S1Eid0(sym) => T1Pbas(sym.name())
+)
+
+(* ****** ****** *)
+
+fun
+f0_app2
+(s1e0: s1exp): t1ype =
+let
+val-
+S1Eapp2
+( s1f0
+, s1e1
+, s1e2) = s1e0.node()
+//
+val-
+Some(tpc) = f0_tpc0(s1f0)
+//
+in//let
+//
+(
+case- tpc of
+| "*" =>
+  T1Ptup(t1p1, t1p2)
+| "->" =>
+  T1Pfun(t1p1, t1p2)) where
+{
+  val t1p1 = trans1m_s1exp(s1e1)
+  val t1p2 = trans1m_s1exp(s1e2)
+}
+//
+end // end of [f0_app2]
+
+(* ****** ****** *)
+
+fun
+f0_list
+(s1e0: s1exp): t1ype =
+let
+//
+val-
+S1Elist(s1es) = s1e0.node()
+//
+in//let
+//
+case+ s1es of
+|
+list_nil
+((*void*)) => T1Pnil((*void*))
+|
+list_cons
+(s1e1, s1es) => f0_s1es(s1e1, s1es)
+//
+end // end of [auxlist]
+
+and
+f0_s1es
+( s1e1: s1exp
+, s1es: s1explst): t1ype =
+let
+val
+t1p1 = trans1m_s1exp(s1e1)
+in//let
+case+ s1es of
+| list_nil
+  ((*void*)) => t1p1
+| list_cons
+  (s1e2, s1es) =>
+  T1Ptup(t1p1, f0_s1es(s1e2, s1es))
+end // end of [auxs1es]
+
+in (*in-of-local*)
 //
 implement
 trans1m_s1exp
@@ -33,7 +174,14 @@ trans1m_s1exp
 (
 case+
 s1e0.node() of
+//
+| S1Eid0 _ => f0_id0(s1e0)
+//
+| S1Elist _ => f0_list(s1e0)
+| S1Eapp2 _ => f0_app2(s1e0)
+//
 | _(*rest-of-s1exp*) => T1Pnone(s1e0)
+//
 ) where
 {
 (*
@@ -42,6 +190,10 @@ println!("trans1m_s1exp: s1e0 = ", s1e0)
 *)
 } (*where*) // end of [trans1m_s1exp(s1e0)]
 //
+(* ****** ****** *)
+
+end (*local*) // end of [local(trans1m_s1exp)]
+
 (* ****** ****** *)
 //
 implement
