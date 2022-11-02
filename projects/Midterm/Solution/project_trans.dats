@@ -48,20 +48,23 @@ fun
 istpc
 (nm0: string): bool =
 (
-auxlst(nm0, the_tpcon_lst)
+search(nm0, the_tpcon_lst)
 ) where
 {
 fun
-auxlst
-( nm0: string
-, nms: List0(string)): bool =
+search
+(nm0: string
+,nms: List0(string)): bool =
 (
 case+ nms of
-| list_nil() => false
-| list_cons(nm1, nms) =>
-  if (nm0 = nm1) then true else auxlst(nm0, nms)
+|
+list_nil() => false
+|
+list_cons(nm1, nms) =>
+if (nm0 = nm1)
+then true else search(nm0, nms)
 )
-} (* end of [istpc] *)
+} (*where*) // end of [istpc(nm0)]
 
 (* ****** ****** *)
 
@@ -126,7 +129,7 @@ case- tpc of
   val t1p2 = trans1m_s1exp(s1e2)
 }
 //
-end // end of [f0_app2]
+end (*let*) // end of [f0_app2(s1e0)]
 
 (* ****** ****** *)
 
@@ -148,7 +151,7 @@ list_nil
 list_cons
 (s1e1, s1es) => f0_s1es(s1e1, s1es)
 //
-end // end of [auxlist]
+end (*let*) // end of [auxlist(s1e0)]
 
 and
 f0_s1es
@@ -225,6 +228,104 @@ case+ sopt of
   myoptn_cons(trans1m_s1exp(s1e0)))
 //(*case+*) // end of [trans1m_s1expopt]
 //
+(* ****** ****** *)
+
+local
+
+fun
+f0_f1as_tvar
+( f1as
+: f1arglst): t1var =
+let
+val-
+list_cons
+(f1a0, _) = f1as
+in
+case-
+f1a0.node() of
+|
+F1ARGsome_dyn
+  ( d1p0 ) => f0_dpat_tvar(d1p0)
+end // end of [f0_f1as_var(f1as)]
+
+and
+f0_dpat_tvar
+(d1p0: d1pat): t1var =
+(
+case-
+d1p0.node() of
+|
+D1Pid0(tok1) =>
+(
+case-
+tok1.node() of
+|
+T_IDENT_alp(nam1) => nam1
+|
+T_IDENT_sym(nam1) => nam1
+)
+|
+D1Plist(d1ps) =>
+(
+  f0_dpat_tvar(d1p1)) where
+{
+  val-list_cons(d1p1, _) = d1ps
+}
+| D1Panno(d1p1, _) => f0_dpat_tvar(d1p1)
+)
+
+(* ****** ****** *)
+
+fun
+f0_f1as_type
+( f1as
+: f1arglst): t1ypeopt =
+let
+val-
+list_cons(f1a1, _) = f1as
+in
+case-
+f1a1.node() of
+|
+F1ARGsome_dyn
+  ( d1p1 ) => f0_dpat_type(d1p1)
+end (*let*) // end of [f0_anno_type(f1as)]
+
+and
+f0_dpat_type
+( d1p0
+: d1pat): t1ypeopt =
+(
+case-
+d1p0.node() of
+|
+D1Plist(d1ps) =>
+(
+  f0_dpat_type(d1p1)
+) where
+{
+  val-list_cons(d1p1, _) = d1ps
+}
+|
+D1Panno(_, s1e2) =>
+myoptn_cons(trans1m_s1exp(s1e2))
+|
+_(*rest-of-d1pat*) => myoptn_nil()
+) (*case+*) // end of [f0_dpat_type(d1p0)]
+
+in//local
+
+fun
+trans1m_f1as_tvar
+( f1as
+: f1arglst): t1var = f0_f1as_tvar(f1as)
+fun
+trans1m_f1as_type
+( f1as
+: f1arglst): t1ypeopt = f0_f1as_type(f1as)
+
+end (*local*) // end of [local(trans1m_f1as)]
+
 (* ****** ****** *)
 //
 implement
