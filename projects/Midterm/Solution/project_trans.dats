@@ -273,7 +273,7 @@ T_IDENT_alp(nam1) => nam1
 T_IDENT_sym(nam1) => nam1
 )
 |
-D1Plist(d1ps) =>
+D1Pl1st(d1ps) =>
 (
   f0_dpat_tvar(d1p1)) where
 {
@@ -307,7 +307,7 @@ f0_dpat_type
 case-
 d1p0.node() of
 |
-D1Plist(d1ps) =>
+D1Pl1st(d1ps) =>
 (
   f0_dpat_type(d1p1)
 ) where
@@ -360,6 +360,8 @@ $list{oprnm} (
 , "print"
 ) (* the_oprnmlst *)
 
+(* ****** ****** *)
+
 fun
 isopr
 (nm0: oprnm): bool =
@@ -381,6 +383,8 @@ if (nm0 = nm1)
 then true else search(nm0, nms)
 )
 } (*where*) // end of [isopr(nm0)]
+
+(* ****** ****** *)
 
 fun
 f0_opr
@@ -408,6 +412,8 @@ tok.node() of
 _ (*non-D1Eid*) => None((*void*))
 )
 
+(* ****** ****** *)
+
 fun
 f0_id0
 ( d1e0
@@ -424,6 +430,8 @@ tok.node() of
 | T_IDENT_sym(nam) => T1Mvar(nam)
 )
 )
+
+(* ****** ****** *)
 
 fun
 f0_int
@@ -442,6 +450,8 @@ T_INT1(rep) => T1Mint(g0string2int(rep))
 )
 )
 
+(* ****** ****** *)
+
 fun
 f0_str
 ( d1e0
@@ -459,8 +469,10 @@ T_STRING_closed(rep) => T1Mstr(xatsopt_strunq(rep))
 )
 )
 
+(* ****** ****** *)
+
 fun
-f0_list
+f0_l1st
 ( d1e0
 : d1exp): t1erm =
 (
@@ -468,7 +480,7 @@ f0_list
 {
 //
 val-
-D1Elist(d1es) = d1e0.node()
+D1El1st(d1es) = d1e0.node()
 //
 fun
 f0_d1es
@@ -488,6 +500,8 @@ case+ d1es of
 )
 //
 } (*where*) // end of [f0_list(d1e0)]
+
+(* ****** ****** *)
 
 fun
 f0_if0
@@ -515,6 +529,26 @@ T1Mif0(t1m1, t1m2, opt3)
 }
 end (*let*) // end of [f0_if0(d1e0)]
 
+(* ****** ****** *)
+
+fun
+t1erm_seq
+(t1ms: t1ermlst): t1erm =
+(
+case+ t1ms of
+|
+mylist_nil() => T1Mnil()
+|
+mylist_cons(t1m1, tms2) =>
+(
+case+ tms2 of
+|
+mylist_nil
+((*void*)) => t1m1 | _ => T1Mseq(t1ms))
+) (*case+*) // end of [t1erm_seq(t1ms)]
+
+(* ****** ****** *)
+
 fun
 f0_let
 ( d1e0
@@ -536,9 +570,11 @@ t1ds =
 trans1m_d1eclist(d1cs)
 val
 t1m2 =
-T1Mseq(trans1m_d1explst(d1es))
+t1erm_seq(trans1m_d1explst(d1es))
 }
 end (*let*) // end of [f0_let(d1e0)]
+
+(* ****** ****** *)
 
 fun
 f0_lam
@@ -573,6 +609,8 @@ T1Mlam
   val tres = trans1m_s1exp(s1e0)
 }
 end (*let*) // end of [f0_lam(d1e0)]
+
+(* ****** ****** *)
 
 fun
 f0_fix
@@ -625,6 +663,8 @@ case+ res0 of
   }
 end (*let*) // end of [f0_fix(d1e0)]
 
+(* ****** ****** *)
+
 fun
 f0_app1
 (d1e0: d1exp): t1erm =
@@ -663,7 +703,7 @@ val t1ms =
 case+
 d1e2.node() of
 |
-D1Elist(d1es) =>
+D1El1st(d1es) =>
 trans1m_d1explst(d1es)
 |
 _(*non-D1Elist*) =>
@@ -673,6 +713,8 @@ mylist_sing(trans1m_d1exp(d1e2))
 }
 //
 end // end of [f0_app1]
+
+(* ****** ****** *)
 
 fun
 f0_app2
@@ -704,12 +746,14 @@ T1Mopr(opr1, mylist_pair(t1m2, t1m3))
 //
 end (*let*) // end of [f0_app2(d1e0)]
 
+(* ****** ****** *)
+
 fun
 f0_seqn
 ( d1e0
 : d1exp): t1erm =
 (
-T1Mseq
+t1erm_seq
 (
 trans1m_d1explst
 (list_append(des2, des2)))
@@ -719,6 +763,8 @@ trans1m_d1explst
   D1Eseqn
   (des1, des2) = d1e0.node()
 }
+
+(* ****** ****** *)
 
 fun
 f0_anno
@@ -757,7 +803,8 @@ d1e0.node() of
 | D1Elam _ => f0_lam(d1e0)
 | D1Efix _ => f0_fix(d1e0)
 //
-| D1Elist _ => f0_list(d1e0)
+| D1El1st _ => f0_l1st(d1e0)
+//
 | D1Eseqn _ => f0_seqn(d1e0)
 //
 | D1Eapp1 _ => f0_app1(d1e0)
