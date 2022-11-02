@@ -246,7 +246,7 @@ f1a0.node() of
 |
 F1ARGsome_dyn
   ( d1p0 ) => f0_dpat_tvar(d1p0)
-end // end of [f0_f1as_var(f1as)]
+end (*let*) // end of [f0_f1as_tvar(f1as)]
 
 and
 f0_dpat_tvar
@@ -272,7 +272,7 @@ D1Plist(d1ps) =>
   val-list_cons(d1p1, _) = d1ps
 }
 | D1Panno(d1p1, _) => f0_dpat_tvar(d1p1)
-)
+) (*case+*) // end of [f0_dpat_tvar(d1p0)]
 
 (* ****** ****** *)
 
