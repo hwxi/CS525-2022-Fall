@@ -46,6 +46,9 @@ the_tpconlst =
 $list{tpcnm}
 ( "*"
 , "->"
+, "list"
+, "lazy"
+, "stream"
 ) (* the_tpconlst *)
 (* ****** ****** *)
 overload .name
