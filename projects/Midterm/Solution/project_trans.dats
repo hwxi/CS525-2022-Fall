@@ -386,8 +386,10 @@ $list{oprnm} (
 , "<="
 , ">="
 , "!="
+(*
 , "fst"
 , "snd"
+*)
 , "show"
 , "print"
 , "showval"
@@ -716,6 +718,25 @@ end (*let*) // end of [f0_fix(d1e0)]
 (* ****** ****** *)
 
 fun
+t1erm_app
+( t1m1: t1erm
+, t1m2: t1erm): t1erm =
+(
+case+ t1m1 of
+//
+|
+T1Mvar("fst") => T1Mfst(t1m2)
+|
+T1Mvar("snd") => T1Msnd(t1m2)
+//
+|
+_(*otherwise*) => T1Mapp(t1m1, t1m2)
+//
+) (*case+*) // end-[t1erm_app(t1m1,t1m2)]
+
+(* ****** ****** *)
+
+fun
 f0_app1
 (d1e0: d1exp): t1erm =
 let
@@ -733,19 +754,18 @@ case+ opt1 of
 |
 None() =>
 (
-  T1Mapp(t1m1, t1m2)
-) where
+t1erm_app
+(t1m1, t1m2)) where
 {
-  val
-  t1m1 = trans1m_d1exp(d1e1)
-  val
-  t1m2 = trans1m_d1exp(d1e2)
+val
+t1m1 = trans1m_d1exp(d1e1)
+val
+t1m2 = trans1m_d1exp(d1e2)
 }
 |
 Some(opnm) =>
 (
-  T1Mopr(opnm, t1ms)
-) where
+T1Mopr(opnm, t1ms)) where
 {
 val t1ms =
 (
@@ -806,7 +826,7 @@ f0_seqn
 t1erm_seq
 (
 trans1m_d1explst
-(list_append(des2, des2)))
+(list_append(des1, des2)))
 ) where
 {
   val-
