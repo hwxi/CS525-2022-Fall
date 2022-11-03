@@ -388,7 +388,9 @@ $list{oprnm} (
 , "!="
 , "fst"
 , "snd"
+, "show"
 , "print"
+, "showval"
 //
 , "list_nil"
 , "list_cons"
