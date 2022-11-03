@@ -56,6 +56,11 @@ fprint!(out, "T1Pfun(", t1p1, ";", t1p2, ")")
 |
 T1Ptup(t1p1, t1p2) =>
 fprint!(out, "T1Ptup(", t1p1, ";", t1p2, ")")
+//
+|
+T1Plist(t1p1) =>
+fprint!(out, "T1Plist(", t1p1, ")")
+//
 |
 T1Pnone(s1e1) => fprint!(out, "T1Pnone(", s1e1, ")")
 ) (*case+*) // end of [fprint_t1ype(out,t1p0)]

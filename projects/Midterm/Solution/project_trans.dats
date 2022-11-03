@@ -115,6 +115,33 @@ S1Eid0(sym) => T1Pbas(sym.name())
 (* ****** ****** *)
 
 fun
+f0_app1
+(s1e0: s1exp): t1ype =
+let
+val-
+S1Eapp1
+( s1f0
+, s1e1) = s1e0.node()
+//
+val-
+Some(tpc) = f0_tpc0(s1f0)
+//
+in//let
+//
+(
+case- tpc of
+| "list" =>
+  T1Plist(t1p1) where
+{
+  val t1p1 = trans1m_s1exp(s1e1)
+}
+)
+//
+end (*let*) // end of [f0_app1(s1e0)]
+
+(* ****** ****** *)
+
+fun
 f0_app2
 (s1e0: s1exp): t1ype =
 let
@@ -145,12 +172,12 @@ end (*let*) // end of [f0_app2(s1e0)]
 (* ****** ****** *)
 
 fun
-f0_list
+f0_l1st
 (s1e0: s1exp): t1ype =
 let
 //
 val-
-S1Elist(s1es) = s1e0.node()
+S1El1st(s1es) = s1e0.node()
 //
 in//let
 //
@@ -191,7 +218,8 @@ s1e0.node() of
 //
 | S1Eid0 _ => f0_id0(s1e0)
 //
-| S1Elist _ => f0_list(s1e0)
+| S1El1st _ => f0_l1st(s1e0)
+| S1Eapp1 _ => f0_app1(s1e0)
 | S1Eapp2 _ => f0_app2(s1e0)
 //
 | _(*rest-of-s1exp*) => T1Pnone(s1e0)

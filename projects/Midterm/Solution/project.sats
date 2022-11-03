@@ -28,6 +28,10 @@ T1Pext of tpVar
 T1Pfun of (t1ype, t1ype)
 |
 T1Ptup of (t1ype, t1ype)
+//
+|
+T1Plist of (t1ype(*elt*))
+//
 |
 T1Pnone of (s1exp(*unsupported*))
 //
