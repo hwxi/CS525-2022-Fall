@@ -389,6 +389,14 @@ $list{oprnm} (
 , "fst"
 , "snd"
 , "print"
+//
+, "list_nil"
+, "list_cons"
+, "list_nilq"
+, "list_consq"
+, "list_uncons1"
+, "list_uncons2"
+//
 ) (* the_oprnmlst *)
 
 (* ****** ****** *)
@@ -477,9 +485,10 @@ D1Eint(tok) =>
 case-
 tok.node() of
 |
-T_INT1(rep) => T1Mint(g0string2int(rep))
+T_INT1(rep) =>
+T1Mint(g0string2int(rep))
 )
-)
+) (*case-*) // end of [f0_int(d1e0)]
 
 (* ****** ****** *)
 
@@ -496,9 +505,10 @@ D1Estr(tok) =>
 case-
 tok.node() of
 |
-T_STRING_closed(rep) => T1Mstr(xatsopt_strunq(rep))
+T_STRING_closed(rep) =>
+T1Mstr(xatsopt_strunq(rep))
 )
-)
+) (*case-*) // end of [f0_str(d1e0)]
 
 (* ****** ****** *)
 
@@ -518,16 +528,22 @@ f0_d1es
 (d1es: d1explst): t1erm =
 (
 case+ d1es of
-| list_nil() => T1Mnil()
-| list_cons
-  (d1e1, d1es) =>
-  let
-  val t1m1 = trans1m_d1exp(d1e1)
-  in
-    if
-    iseqz(d1es)
-    then t1m1 else T1Mtup(t1m1, f0_d1es(d1es))
-  end // end of [list_cons]
+|
+list_nil() => T1Mnil()
+|
+list_cons
+(d1e1, d1es) =>
+let
+val
+t1m1 = trans1m_d1exp(d1e1)
+in//let
+//
+if
+iseqz(d1es)
+then (t1m1)
+else T1Mtup(t1m1, f0_d1es(d1es))
+//
+end (*let*) // end of [list_cons]
 )
 //
 } (*where*) // end of [f0_list(d1e0)]
@@ -547,17 +563,18 @@ D1Eif0
 , opt3) = d1e0.node()
 //
 in
+//
 (
-T1Mif0(t1m1, t1m2, opt3)
-) where
+T1Mif0
+(t1m1, t1m2, opt3)) where
 {
-  val
-  t1m1 = trans1m_d1exp(d1e1)
-  val
-  t1m2 = trans1m_d1exp(d1e2)
-  val
-  opt3 = trans1m_d1expopt(opt3)
-}
+val
+t1m1 = trans1m_d1exp(d1e1)
+val
+t1m2 = trans1m_d1exp(d1e2)
+val
+opt3 = trans1m_d1expopt(opt3) }
+//
 end (*let*) // end of [f0_if0(d1e0)]
 
 (* ****** ****** *)
