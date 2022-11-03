@@ -39,7 +39,7 @@ tpVar = ref(myoptn(t1ype))
 and t1ypelst = mylist(t1ype)
 and t1ypeopt = myoptn(t1ype)
 //
-// end of [ datatype(t1yp1) ]
+// end of [ datatype(t1ype) ]
 ```
 
 ### Terms (Expressions)

@@ -213,7 +213,7 @@ datatype t1val =
 where
 tvenv = mylist(@(tmvar, t1val))
 
-typedef t1vallst = mylist(t1val)
+typedef t1valist = mylist(t1val)
 
 (* ****** ****** *)
 extern
@@ -283,7 +283,7 @@ t1erm_interp1_opr
 extern
 fun
 t1ermlst_interp1
-(tms: t1ermlst, xvs: tvenv): t1vallst
+(tms: t1ermlst, xvs: tvenv): t1valist
 
 (* ****** ****** *)
 

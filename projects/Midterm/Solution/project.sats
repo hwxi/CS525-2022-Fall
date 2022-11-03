@@ -130,13 +130,13 @@ T1Mtup of (t1erm, t1erm)
 T1Mseq of (t1ermlst)
 //
 |
+T1Mlet of (t1dclist, t1erm)
+//
+|
 T1Mfix of
 ( t1var
 , t1var, t1ypeopt(*arg*)
 , t1erm, t1ypeopt(*res*))
-//
-|
-T1Mlet of (t1dclist, t1erm)
 //
 |
 T1Manno of (t1erm, t1ype(*anno*))
