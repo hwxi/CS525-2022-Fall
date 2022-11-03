@@ -1,4 +1,11 @@
-# Midterm for CS525, Fall, 2022
+# Midterm for CS525, Fall,
+
+The midterm is due Wednesday, the 23rd of November.  The precise due
+time is 11:59pm of the due day.
+
+All of your code should be stored in the Midterm/MySolution directory.
+I expect to see that your submitted code is accompanied by a README file
+detailing what you have done for this project.
 
 ## Abstract Syntax for LAMBDA
 
@@ -107,8 +114,8 @@ where t1dclist = mylist(t1dcl)
 
 ## Implementation Tasks for this Midterm
 
-### A type-checker for LAMBDA (100 points)
 ### An interpreter for LAMBDA (100 points)
+### A type-checker for LAMBDA (100 points)
 ### Translating programs in LAMBDA into A-normal form (100 points)
 ### Emitting C code based on programs in A-normal form (100 points)
 
