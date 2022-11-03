@@ -104,3 +104,11 @@ where t1dclist = mylist(t1dcl)
 //
 // end of [ datatype(t1dcl,t1erm) ]
 ```
+
+## Implementation Tasks for this Midterm
+
+### A type-checker for LAMBDA (100 points)
+### An interpreter for LAMBDA (100 points)
+### Translating programs in LAMBDA into A-normal form (100 points)
+### Emitting C code based on programs in A-normal form (100 points)
+
