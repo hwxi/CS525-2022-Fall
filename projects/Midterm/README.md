@@ -112,10 +112,29 @@ where t1dclist = mylist(t1dcl)
 // end of [ datatype(t1dcl,t1erm) ]
 ```
 
+### Primitive Operators
+
+  * "+": integer add
+  * "-": integer sub
+  * "/": integer mul
+  * "*": integer div
+  * "%": integer mod
+  * "<": integer lt
+  * ">": integer gt
+  * "=": integer eq
+  * "<=": integer lte
+  * ">=": integer gte
+  * "!=": integer neq
+  * "list_nil": list-nil
+  * "list_cons": list-cons
+  * "list_nilq": list-nil-test
+  * "list_consq": list-cons-test
+  * "list_uncons1": list-head
+  * "list_uncons1": list-tail
+    
 ## Implementation Tasks for this Midterm
 
 ### An interpreter for LAMBDA (100 points)
 ### A type-checker for LAMBDA (100 points)
 ### Translating programs in LAMBDA into A-normal form (100 points)
 ### Emitting C code based on programs in A-normal form (100 points)
-
