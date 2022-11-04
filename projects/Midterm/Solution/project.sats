@@ -171,6 +171,38 @@ overload fprint with fprint_t1erm
 //
 (* ****** ****** *)
 //
+datatype t1val =
+//
+| T1Vnil of ()
+//
+| T1Vint of int
+| T1Vbtf of bool
+| T1Vstr of string
+//
+| T1Vtup of (t1val, t1val)
+//
+| T1Vlam of (t1erm, t1env)
+| T1Vfix of (t1erm, t1env)
+//
+| // for constructors
+T1Vcons of (int(*tag*), t1valist)
+//
+where
+t1env =
+mylist(@(t1var, t1val))
+and t1valist = mylist(t1val)
+//
+(* ****** ****** *)
+fun
+print_t1val(t1val): void
+fun
+fprint_t1val
+(out:FILEref, t1v0:t1val): void
+(* ****** ****** *)
+overload print with print_t1val
+overload fprint with fprint_t1val
+(* ****** ****** *)
+//
 fun
 trans1m_s1exp: s1exp -> t1ype
 fun
