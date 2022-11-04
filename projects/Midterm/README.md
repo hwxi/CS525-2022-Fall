@@ -125,6 +125,9 @@ where t1dclist = mylist(t1dcl)
   * `<=`: integer lte
   * `>=`: integer gte
   * `!=`: integer neq
+  * `show`: print strings
+  * `print`: print ints/bools/strings
+  * `showval`: print values
   * `list_nil`: () -> list(X) // list-nil
   * `list_cons`: (X, list(X)) -> list(X) // list-cons
   * `list_nilq`: list(X) -> bool // list-nil-test
