@@ -114,8 +114,8 @@ where t1dclist = mylist(t1dcl)
 
 ### Primitive Operators
 
-  * "+": integer add
-  * "-": integer sub
+  * `+`: integer add
+  * `-`: integer sub
   * "/": integer mul
   * "*": integer div
   * "%": integer mod
@@ -130,7 +130,7 @@ where t1dclist = mylist(t1dcl)
   * "list_nilq": list-nil-test
   * "list_consq": list-cons-test
   * "list_uncons1": list-head
-  * "list_uncons1": list-tail
+  * "list_uncons2": list-tail
     
 ## Implementation Tasks for this Midterm
 
