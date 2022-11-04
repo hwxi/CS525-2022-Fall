@@ -174,5 +174,10 @@ t1dclist_interp0(t1dclist): t1env // for interpreting declarations
 
 ### A type-checker for LAMBDA (100 points)
 
+```
+fun
+t1erm_oft1ype0(t1erm): t1ypeopt // for type-checking terms
+```
+
 ### Translating programs in LAMBDA into A-normal form (100 points)
 ### Emitting C code based on programs in A-normal form (100 points)
