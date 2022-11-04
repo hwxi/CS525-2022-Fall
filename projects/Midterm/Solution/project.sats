@@ -170,6 +170,10 @@ overload print with print_t1erm
 overload fprint with fprint_t1erm
 //
 (* ****** ****** *)
+typedef
+t1ctx =
+mylist(@(t1var, t1ype))
+(* ****** ****** *)
 //
 datatype t1val =
 //
@@ -244,7 +248,9 @@ t1dclist_interp0(t1dclist): t1env
 HX: for the type-checker
 *)
 fun
-t1erm_oftype0(t1erm): t1ypeopt
+t1erm_oftype0(t1erm): t1ype
+fun
+t1dclist_interp0(t1dclist): t1ctx
 (* ****** ****** *)
 //
 fun
