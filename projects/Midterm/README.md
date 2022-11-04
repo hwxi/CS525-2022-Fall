@@ -176,7 +176,7 @@ t1dclist_interp0(t1dclist): t1env // for interpreting declarations
 
 ```
 fun
-t1erm_oft1ype0(t1erm): t1ypeopt // for type-checking terms
+t1erm_oftype0(t1erm): t1ypeopt // for type-checking terms
 ```
 
 ### Translating programs in LAMBDA into A-normal form (100 points)

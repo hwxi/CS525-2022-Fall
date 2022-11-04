@@ -227,13 +227,24 @@ fun
 trans1m_d1eclist: d1eclist -> t1dclist
 //
 (* ****** ****** *)
+//
 fun
 trans1m_main_fun: d1eclist -> t1ermopt
+//
 (* ****** ****** *)
+(*
+HX: for the interpreter
+*)
 fun
 t1erm_interp0(t1erm): t1val
 fun
 t1dclist_interp0(t1dclist): t1env
+(* ****** ****** *)
+(*
+HX: for the type-checker
+*)
+fun
+t1erm_oftype0(t1erm): t1ypeopt
 (* ****** ****** *)
 //
 fun
