@@ -9,7 +9,7 @@ detailing what you have done for this project.
 
 ## Abstract Syntax for LAMBDA
 
-### Simple Types
+### Static Types
 
 ```
 datatype t1ype =
@@ -42,7 +42,7 @@ and t1ypeopt = myoptn(t1ype)
 // end of [ datatype(t1ype) ]
 ```
 
-### Terms (Expressions)
+### Dynamic Terms
 
 ```
 (* ****** ****** *)
@@ -110,6 +110,33 @@ where t1dclist = mylist(t1dcl)
   and t1ermopt = myoptn(t1erm)
 //
 // end of [ datatype(t1dcl,t1erm) ]
+```
+
+### Dynamic Values
+
+```
+//
+datatype t1val =
+//
+| T1Vnil of ()
+//
+| T1Vint of int
+| T1Vbtf of bool
+| T1Vstr of string
+//
+| T1Vtup of (t1val, t1val)
+//
+| T1Vlam of (t1erm, t1env)
+| T1Vfix of (t1erm, t1env)
+//
+| // for constructors
+T1Vcons of (int(*tag*), t1valist)
+//
+where
+t1env =
+mylist(@(t1var, t1val))
+and t1valist = mylist(t1val)
+//
 ```
 
 ### Primitive Operators
