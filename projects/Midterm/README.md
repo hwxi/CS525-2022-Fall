@@ -136,8 +136,7 @@ where t1dclist = mylist(t1dcl)
   * `list_uncons2`: list(X) -> list(X) // list-tail
     
 ## Implementation Tasks for this Midterm
-
-### An interpreter for LAMBDA (100 points)
-### A type-checker for LAMBDA (100 points)
-### Translating programs in LAMBDA into A-normal form (100 points)
-### Emitting C code based on programs in A-normal form (100 points)
+  * An interpreter for LAMBDA (100 points)
+  * A type-checker for LAMBDA (100 points)
+  * Translating programs in LAMBDA into A-normal form (100 points)
+  *Emitting C code based on programs in A-normal form (100 points)
