@@ -19,9 +19,9 @@ end
 
 (* ****** ****** *)
 
-fun main() =
+val _ =
 (
-print("fact(10) = "); print(fact(10))
+print("fact(10) = "); print(fact(10)); print("\n")
 )
 
 (* ****** ****** *)

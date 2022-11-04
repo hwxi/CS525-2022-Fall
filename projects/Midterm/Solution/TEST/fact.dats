@@ -7,9 +7,9 @@ if x > 0 then x * f(x-1) else 1
 
 (* ****** ****** *)
 
-fun main() =
+val _ =
 (
-print("fact(10) = "); print(fact(10))
+print("fact(10) = "); print(fact(10)); print("\n")
 )
 
 (* ****** ****** *)

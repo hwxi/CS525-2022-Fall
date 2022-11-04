@@ -5,19 +5,23 @@ kfact(nk) =
 let
   val n = fst(nk)
   val k = snd(nk)
-in
-  if n > 0
-  then
-  kfact(n-1, lam(r) => k(n * r))
-  else k(1)
-end
+in//let
+if n > 0
+then
+kfact(n-1, lam(r) => k(n * r))
+else k(1)
+end (*let*) // end of [kfact(nk)]
+
+(* ****** ****** *)
 
 val fact =
-lam(n) => kfact(n, lam r => r)
+(lam(n) => kfact(n, lam r => r))
 
-fun main() =
+(* ****** ****** *)
+
+val _ =
 (
-print("fact(10) = "); print(fact(10))
+print("fact(10) = "); print(fact(10)); print("\n")
 )
 
 (* ****** ****** *)
