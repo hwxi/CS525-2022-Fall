@@ -163,7 +163,16 @@ and t1valist = mylist(t1val)
   * `list_uncons2`: list(X) -> list(X) // list-tail
     
 ## Implementation Tasks for this Midterm
-  * An interpreter for LAMBDA (100 points)
-  * A type-checker for LAMBDA (100 points)
-  * Translating programs in LAMBDA into A-normal form (100 points)
-  * Emitting C code based on programs in A-normal form (100 points)
+### An interpreter for LAMBDA (100 points)
+
+```
+fun
+t1erm_interp0(t1erm): t1val // for interpreting terms
+fun
+t1dclist_interp0(t1dclist): t1env // for interpreting declarations
+```
+
+### A type-checker for LAMBDA (100 points)
+
+### Translating programs in LAMBDA into A-normal form (100 points)
+### Emitting C code based on programs in A-normal form (100 points)

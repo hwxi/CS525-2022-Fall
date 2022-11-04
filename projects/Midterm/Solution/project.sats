@@ -230,6 +230,11 @@ trans1m_d1eclist: d1eclist -> t1dclist
 fun
 trans1m_main_fun: d1eclist -> t1ermopt
 (* ****** ****** *)
+fun
+t1erm_interp0(t1erm): t1val
+fun
+t1dclist_interp0(t1dclist): t1env
+(* ****** ****** *)
 //
 fun
 project_main0
