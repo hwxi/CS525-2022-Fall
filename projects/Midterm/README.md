@@ -116,21 +116,21 @@ where t1dclist = mylist(t1dcl)
 
   * `+`: integer add
   * `-`: integer sub
-  * "/": integer mul
-  * "*": integer div
-  * "%": integer mod
-  * "<": integer lt
-  * ">": integer gt
-  * "=": integer eq
-  * "<=": integer lte
-  * ">=": integer gte
-  * "!=": integer neq
-  * "list_nil": list-nil
-  * "list_cons": list-cons
-  * "list_nilq": list-nil-test
-  * "list_consq": list-cons-test
-  * "list_uncons1": list-head
-  * "list_uncons2": list-tail
+  * `/`: integer mul
+  * `*`: integer div
+  * `%`: integer mod
+  * `<`: integer lt
+  * `>`: integer gt
+  * `=`: integer eq
+  * `<=`: integer lte
+  * `>=`: integer gte
+  * `!=`: integer neq
+  * `list_nil`: () -> list(X) // list-nil
+  * `list_cons`: (X, list(X)) -> list(X) // list-cons
+  * `list_nilq`: list(X) -> bool // list-nil-test
+  * `list_consq`: list(X) -> bool // list-cons-test
+  * `list_uncons1`: list(X) -> X // list-head
+  * `list_uncons2`: list(X) -> list(X) // list-tail
     
 ## Implementation Tasks for this Midterm
 
