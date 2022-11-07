@@ -250,7 +250,7 @@ HX: for the type-checker
 fun
 t1erm_oftype0(t1erm): t1ype
 fun
-t1dclist_interp0(t1dclist): t1ctx
+t1dclist_oftype0(t1dclist): t1ctx
 (* ****** ****** *)
 //
 fun
