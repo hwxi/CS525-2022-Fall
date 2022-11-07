@@ -76,5 +76,30 @@ extern
 fun
 t1dclist_atrans0(t1dclist): t2env
 (* ****** ****** *)
+extern
+fun
+t1erm_atrans1
+(t1m0: t1erm, env0: t2env): t2cmp
+extern
+fun
+t1dclist_atrans1
+(dcls: t1dclist, env0: t2env): t2env
+(* ****** ****** *)
+//
+implement
+t1erm_atrans0(t1m0) =
+t1erm_atrans1(t1m0, mylist_nil())
+//
+(* ****** ****** *)
+//
+implement
+t1dclist_atrans0
+  (dcls) =
+let
+val
+env0 = mylist_nil()
+in t1dclist_atrans1(dcls, env0) end
+//
+(* ****** ****** *)
 
 (* end of [CS525-2022-Fall/Midterm_project_atrans3.sats] *)
