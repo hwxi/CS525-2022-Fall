@@ -235,8 +235,8 @@ case xs of
 
 (* ****** ****** *)
 //
-fun
-{a:t@ype}
+implement
+{a}//tmp
 mylist_extend
 (xs, x0) = 
 mylist_append<a>
