@@ -1,10 +1,6 @@
 #
 # ignoring generated files
 #
-*~
-\#*
-.\#*
-*_?ats.o
-*_?ats.c
+######
 projects/Xanadu/lib/libxatsopt.a
 ###### end of [.gitignore] ######

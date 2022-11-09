@@ -97,6 +97,11 @@ mylist_getopt_at
 extern
 fun
 {a:t@ype}
+mylist_extend
+(xs: mylist(a), x0: a): mylist(a)
+extern
+fun
+{a:t@ype}
 mylist_append
 (xs: mylist(a), ys: mylist(a)): mylist(a)
 (* ****** ****** *)
@@ -229,6 +234,13 @@ case xs of
 }
 
 (* ****** ****** *)
+//
+fun
+{a:t@ype}
+mylist_extend
+(xs, x0) = 
+mylist_append<a>
+(xs, mylist_sing<a>(x0))
 //
 implement
 {a}//tmp
