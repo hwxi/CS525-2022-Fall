@@ -95,7 +95,7 @@ t1dclist_atrans1
 local
 
 val
-the_count = ref<int>(0)
+mycount = ref<int>(0)
 
 in//local
 
@@ -103,8 +103,8 @@ implement
 t2reg_new
 ((*void*)) = n0 where
 {
-val n0 = the_count[]
-val () = (the_count[] := n0 + 1)
+val n0 = mycount[]
+val () = (mycount[] := n0 + 1)
 }
 
 end // end of [local(t2reg_new)]
