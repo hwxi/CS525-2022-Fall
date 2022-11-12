@@ -66,6 +66,12 @@ t2env =
 mylist(@(t1var, t2cmp))
 //
 (* ****** ****** *)
+
+extern
+fun
+t2reg_new(): t2reg
+
+(* ****** ****** *)
 (*
 HX: for the a-norm-trans
 *)
@@ -84,6 +90,25 @@ extern
 fun
 t1dclist_atrans1
 (dcls: t1dclist, env0: t2env): t2env
+(* ****** ****** *)
+
+local
+
+val
+the_count = ref<int>(0)
+
+in//local
+
+implement
+t2reg_new
+((*void*)) = n0 where
+{
+val n0 = the_count[]
+val () = (the_count[] := n0 + 1)
+}
+
+end // end of [local(t2reg_new)]
+
 (* ****** ****** *)
 //
 implement
