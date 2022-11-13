@@ -125,132 +125,6 @@ t2env =
 mylist(@(t1var, t2cmp))
 //
 (* ****** ****** *)
-//
-local
-//
-val
-mycount = ref<int>(0)
-//
-in//local
-//
-implement
-t2reg_new
-((*void*)) = n0 where
-{
-val n0 = mycount[]
-val () = (mycount[] := n0 + 1)}
-//
-end // end of [local(t2reg_new)]
-//
-(* ****** ****** *)
-//
-implement
-fprint_val<t2box> = fprint_t2box
-implement
-fprint_val<t2ins> = fprint_t2ins
-implement
-fprint_val<t2bnd> = fprint_t2bnd
-//
-(* ****** ****** *)
-//
-implement
-print_t2box(t1x0) =
-  fprint_t2box(stdout_ref, t1x0)
-implement
-print_t2cmp(tcmp) =
-  fprint_t2cmp(stdout_ref, tcmp)
-implement
-print_t2bnd(tbnd) =
-  fprint_t2bnd(stdout_ref, tbnd)
-//
-(* ****** ****** *)
-//
-implement
-fprint_t2box(out, t2x0) =
-(
-//
-case+ t2x0 of
-//
-|
-T2Vnil() =>
-fprint!(out, "T2Vnil(", ")")
-|
-T2Vint(int) =>
-fprint!(out, "T2Vint(", int, ")")
-|
-T2Vbtf(btf) =>
-fprint!(out, "T2Vbtf(", btf, ")")
-|
-T2Vstr(str) =>
-fprint!(out, "T2Vstr(", str, ")")
-|
-T2Varg(arg) =>
-fprint!(out, "T2Varg(", arg, ")")
-|
-T2Vreg(reg) =>
-fprint!(out, "T2Vreg(", reg, ")")
-|
-T2Vlam(tcmp) =>
-fprint!(out, "T2Vlam(", tcmp, ")")
-//
-) (*case+*) // end of [fprint_t2box]
-//
-(* ****** ****** *)
-//
-implement
-fprint_t2ins(out, tins) =
-(
-//
-case+ tins of
-|
-T2Iopr(topr, t2xs) =>
-fprint!
-(out, "T2Iopr(", topr, ";", t2xs, ")")
-//
-|
-T2Ifst(t2x1) =>
-fprint!(out, "T2Ifst(", t2x1, ")")
-|
-T2Isnd(t2x1) =>
-fprint!(out, "T2Isnd(", t2x1, ")")
-|
-T2Itup(t2x1, t2x2) =>
-fprint!
-(out, "T2Itup(", t2x1, ";", t2x2, ")")
-//
-|
-T2Iif0(t2x1, tbs1, tbs2) =>
-fprint!
-( out
-, "T2Iif0(", t2x1, ";", tbs1, ";", tbs2, ")")
-//
-) (*case+*) // end of [fprint_t2ins]
-//
-(* ****** ****** *)
-//
-implement
-fprint_t2bnd(out, tbnd) =
-(
-case+ tbnd of
-|
-T2BND(treg, tins) =>
-fprint!
-(out, "T2BND(", treg, ";", tins, ")")
-) (*case+*) // end of [fprint_t2bnd]
-//
-(* ****** ****** *)
-//
-implement
-fprint_t2cmp(out, tcmp) =
-(
-case+ tcmp of
-|
-T2CMP(bnds, t2x1) =>
-fprint!
-(out, "T2CMP(", bnds, ";", t2x1, ")")
-) (*case+*) // end of [fprint_t2cmp]
-
-(* ****** ****** *)
 (*
 HX: for the a-norm-trans
 *)
@@ -285,6 +159,24 @@ val
 env0 = mylist_nil()
 in//let
 t1dclist_atrans1(dcls, env0) end
+//
+(* ****** ****** *)
+//
+local
+//
+val
+mycount = ref<int>(0)
+//
+in//local
+//
+implement
+t2reg_new
+((*void*)) = n0 where
+{
+val n0 = mycount[]
+val () = (mycount[] := n0 + 1)}
+//
+end // end of [local(t2reg_new)]
 //
 (* ****** ****** *)
 //
@@ -338,6 +230,10 @@ fprint!(out, "T2Varg(", arg, ")")
 |
 T2Vreg(reg) =>
 fprint!(out, "T2Vreg(", reg, ")")
+//
+|
+T2Vlam(tcmp) =>
+fprint!(out, "T2Vlam(", tcmp, ")")
 //
 ) (*case+*) // end of [fprint_t2box(out,t2x0)]
 //
