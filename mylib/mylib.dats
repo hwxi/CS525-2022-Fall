@@ -7,6 +7,19 @@ for BU CAS CS 525 (2022F)
 *)
 //
 (* ****** ****** *)
+//
+extern
+fun{}
+int2str(int): string
+//
+extern
+fun{}
+string_append
+(string, string): string
+//
+overload + with string_append
+//
+(* ****** ****** *)
 datatype
 myoptn(a:t@ype) =
 | myoptn_nil of ()
@@ -130,6 +143,20 @@ mylist_map_cfr
 HX-2022-09-13:
 Implementation should be given below
 *)
+(* ****** ****** *)
+//
+implement
+{}//tmp
+int2str(int) =
+strptr2string(g0int2string(int))
+//
+(* ****** ****** *)
+//
+implement
+{}//tmp
+string_append(cs1, cs2) =
+strptr2string(string0_append<>(cs1, cs2))
+//
 (* ****** ****** *)
 implement
 {a}(*tmp*)

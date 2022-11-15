@@ -67,6 +67,10 @@ fun
 t2reg_new(): t2reg
 //
 (* ****** ****** *)
+extern
+fun
+t2lam_new(): string
+(* ****** ****** *)
 //
 extern
 fun
@@ -159,6 +163,27 @@ val
 env0 = mylist_nil()
 in//let
 t1dclist_atrans1(dcls, env0) end
+//
+(* ****** ****** *)
+//
+local
+//
+val
+mycount = ref<int>(0)
+//
+in//local
+//
+implement
+t2lam_new
+((*void*)) =
+(
+"mylam" +
+int2str(n0)) where
+{
+val n0 = mycount[]
+val () = (mycount[] := n0 + 1)}
+//
+end // end of [local(t2lam_new)]
 //
 (* ****** ****** *)
 //
@@ -311,6 +336,10 @@ mylist_append<a>
 (xs, mylist_sing(x0))
 *)
 //
+(*
+HX-2022-11-11:
+This one is already in mylib
+*)
 overload + with mylist_extend
 //
 (* ****** ****** *)
