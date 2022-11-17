@@ -43,4 +43,4 @@ in t1dclist_oftype1(dcls, ctx0) end
 //
 (* ****** ****** *)
 
-(* end of [CS525-2022-Fall/Midterm_project_tcheck2.sats] *)
+(* end of [CS525-2022-Fall/Midterm_project_tcheck2.dats] *)

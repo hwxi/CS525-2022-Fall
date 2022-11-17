@@ -37,4 +37,4 @@ in t1dclist_interp1(dcls, env0) end
 //
 (* ****** ****** *)
 
-(* end of [CS525-2022-Fall/Midterm_project_interp1.sats] *)
+(* end of [CS525-2022-Fall/Midterm_project_interp1.dats] *)
