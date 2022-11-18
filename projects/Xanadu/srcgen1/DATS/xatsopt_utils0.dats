@@ -320,6 +320,12 @@ the_fixity_load
   val fpath =
     fpath_make(given, fname)  
 //
+(*
+  val () =
+  println!
+  ("the_fixity_load: fname = ", fname)
+*)
+//
   val
   (pf0 | ()) =
   $FP0.the_filpathlst_push(fpath)

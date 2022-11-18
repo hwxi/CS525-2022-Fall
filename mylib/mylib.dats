@@ -33,6 +33,15 @@ mylist(a:t@ype) =
 #define none myoptn_nil
 #define some myoptn_cons
 (* ****** ****** *)
+extern
+castfn
+list2mylist
+{a:t@ype}(List0(a)): mylist(a)
+extern
+castfn
+option2myoptn
+{a:t@ype}(Option(a)): myoptn(a)
+(* ****** ****** *)
 //
 extern
 fun
@@ -138,6 +147,13 @@ fun
 mylist_map_cfr
 (xs: mylist(a), f0: a -<cloref1> b): mylist(b)
 
+(* ****** ****** *)
+//
+extern
+fun{}
+string2mylist
+  (cs: string): mylist(char)
+//
 (* ****** ****** *)
 (*
 HX-2022-09-13:
@@ -319,6 +335,11 @@ mylist_nil() => mylist_nil()
 mylist_cons(x1, xs) => mylist_cons(f0(x1), map(xs))
 } (*where*) // end of [ mylist_map_cfr(xs, f0) ]
 //
+(* ****** ****** *)
+implement
+{}//tmp
+string2mylist(cs) =
+list2mylist(list_vt2t(stream2list_vt<char>(streamize_string_char<>(cs))))
 (* ****** ****** *)
 
 (* end of [CS525-2022-Fall/mylib/mylib.dats] *)

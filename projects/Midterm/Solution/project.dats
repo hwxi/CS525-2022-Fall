@@ -164,7 +164,10 @@ let
 //
 val
 XATSHOME =
-"./../../Xanadu"
+"./../../Xanadu" // hard-code
+(* 
+$GLO.the_XATSHOME_get() // more flexible
+*)
 //
 val
 ((*void*)) =
