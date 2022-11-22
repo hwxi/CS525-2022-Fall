@@ -7,14 +7,20 @@ This one is taken from Assignment#4
 fun
 isPrime
 (n: int): bool =
-loop( 2 ) where
+loop(n,2) where
 {
 fun
-loop(i: int): bool =
+loop
+(ni: (int, int)): bool =
+let
+val n = fst(ni)
+val i = snd(ni)
+in
 if
 (i*i > n)
-then true
-else (if n % i = 0 then false else loop(i+1))
+then true else
+(if n % i = 0 then false else loop(n, i+1))
+end (*let*) // end of [loop(ni)]
 }
 
 (* ****** ****** *)
