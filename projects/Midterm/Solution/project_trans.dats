@@ -469,7 +469,15 @@ D1Eid0(tok) =>
 (
 case-
 tok.node() of
-| T_IDENT_alp(nam) => T1Mvar(nam)
+|
+T_IDENT_alp(nam) =>
+(
+case+ nam of
+| "true" =>
+T1Mbtf(true)
+| "false" =>
+T1Mbtf(false) | _ => T1Mvar(nam)
+)
 | T_IDENT_sym(nam) => T1Mvar(nam)
 )
 )
@@ -614,14 +622,14 @@ D1Elet
 //
 in
 (
-  T1Mlet(t1ds, t1m2)
+  T1Mlet(t1ds, t1m1)
 ) where
 {
 val
 t1ds =
 trans1m_d1eclist(d1cs)
 val
-t1m2 =
+t1m1 =
 t1erm_seq(trans1m_d1explst(d1es))
 }
 end (*let*) // end of [f0_let(d1e0)]
@@ -855,6 +863,32 @@ in
 }
 end (*let*) // end of [f0_anno(d1e0)]
 
+(* ****** ****** *)
+
+fun
+f0_where
+( d1e0
+: d1exp): t1erm =
+let
+//
+val-
+D1Ewhere
+( d1e1
+, d1cs) = d1e0.node()
+//
+in
+(
+  T1Mlet(t1ds, t1m1)
+) where
+{
+val
+t1ds = trans1m_d1eclist(d1cs)
+val t1m1 = trans1m_d1exp(d1e1)
+}
+end (*let*) // end of [f0_where(d1e0)]
+
+(* ****** ****** *)
+
 in(*in-of-local*)
 //
 implement
@@ -881,6 +915,8 @@ d1e0.node() of
 | D1Eapp2 _ => f0_app2(d1e0)
 //
 | D1Eanno _ => f0_anno(d1e0)
+//
+| D1Ewhere _ => f0_where(d1e0)
 //
 | _(*rest-of-d1exp*) => T1Mnone(d1e0)
 ) where
