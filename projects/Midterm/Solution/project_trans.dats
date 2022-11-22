@@ -101,7 +101,7 @@ _ (*non-S1Eid*) => None((*void*))
 )
 
 (* ****** ****** *)
-
+//
 fun
 f0_id0
 (s1e0: s1exp): t1ype =
@@ -109,9 +109,17 @@ f0_id0
 case-
 s1e0.node() of
 |
-S1Eid0(sym) => T1Pbas(sym.name())
-)
-
+S1Eid0(sym) =>
+let
+val
+nam = sym.name()
+in//let
+case+ nam of
+| "void" =>
+  T1Pnil( ) | _ => T1Pbas(nam)
+end (*let*) // end of [S1Eid0(sym)]
+) (*case+*) // end of [f0_id0(s1e0)]
+//
 (* ****** ****** *)
 
 fun
@@ -375,7 +383,8 @@ oprnm = string
 val
 the_oprnmlst =
 $list{oprnm} (
-  "+"
+  "~"
+, "+"
 , "-"
 , "*"
 , "/"
