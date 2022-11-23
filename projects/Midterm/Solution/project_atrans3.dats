@@ -37,8 +37,12 @@ t2box =
 and t2ins =
 //
 |
+T2Ical of
+(t2box, t2box) // function call
+//
+|
 T2Iopr of
-(t1opr, t2boxlst)
+(t1opr, t2boxlst) // operator call
 //
 |
 T2Ifst of (t2box) // first projection
