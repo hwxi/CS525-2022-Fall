@@ -22,11 +22,16 @@ strm_cons(x0, filter(xs)) where
 {
 fun filter(xs) =
 $lazy(
-case- $eval(xs) of
-| strm_cons(x1, xs) =>
+let
+val xs = $eval(xs)
+val x1 = strm_uncons1(xs)
+val xs = strm_uncons2(xs)
+in
 if
 (x1%x0 = 0)
-then $eval(filter(xs)) else strm_cons(x1, filter(xs)))
+then $eval(filter(xs)) else strm_cons(x1, filter(xs))
+end (*let*)
+)
 }
 )
 
@@ -38,18 +43,38 @@ ints_print
 : lazy
   (strm(int))): void =
 (
-auxmain(xs, 0, 10)) where
+auxmain(xs)( 0)(10)) where
 {
+//
 fun
-auxmain(xs, i0, n0): void =
-if i0 < n0 then
+auxmain
+( xs
+: lazy(strm(int))
+) =
+lam(i0) =>
+lam(n0): void =>
+if
+(i0 < n0)
+then
 (
-case+ $eval(xs) of
-|
-strm_nil() => print(".")
-|
-strm_cons(x1, xs) =>
-(if i0 > 0 then print(","); print(x1); auxmain(xs, i0+1, n0)))
+let
+  val xs = $eval(xs)
+in
+  if
+  strm_nilq(xs)
+  then
+    print( "." )
+  else
+    let
+      val x1 = strm_uncons1(xs)
+      val xs = strm_uncons2(xs)
+    in
+      if i0 > 0 then (print(","); print(x1); auxmain(xs)(i0+1)(n0))
+    end
+  // end-of-[if]
+end
+)
+//
 } (*where*) // end of [ ints_print(xs) ]
 //
 (* ****** ****** *)

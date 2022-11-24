@@ -1,4 +1,4 @@
-# Midterm for CS525, Fall,
+# Midterm for CS525, Fall, 2022
 
 The midterm is due Wednesday, the 23rd of November.  The precise due
 time is 11:59pm of the due day.

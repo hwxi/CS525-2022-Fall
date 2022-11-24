@@ -1,4 +1,4 @@
-# Final for CS525, Fall,
+# Final for CS525, Fall, 2022
 
 The final is due Monday, the 12th of December.  The precise due
 time is 11:59pm of the due day.
