@@ -15,10 +15,14 @@ xs: lazy(strm(int))
 ) : lazy(strm(int)) =
 $lazy
 (
-case- $eval(xs) of
-|
-strm_cons(x0, xs) =>
-strm_cons(x0, filter(xs)) where
+let
+val xs = $eval(xs)
+vla x0 = strm_uncons1(xs)
+vla xs = strm_uncons2(xs)
+in
+strm_cons(x0, filter(xs))
+end
+) where
 {
 fun filter(xs) =
 $lazy(
