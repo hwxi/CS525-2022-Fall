@@ -39,8 +39,7 @@ then $eval(filter(xs)) else strm_cons(x1, filter(xs))
 end (*let*)
 ) (*$lazy*) // end of [filter(xs)]
 //
-}
-)
+} (*where*) // end of [ sieve(xs) ]
 
 (* ****** ****** *)
 //
