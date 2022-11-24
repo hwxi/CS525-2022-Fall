@@ -19,12 +19,14 @@ let
 val xs = $eval(xs)
 vla x0 = strm_uncons1(xs)
 vla xs = strm_uncons2(xs)
-in
+in//let
 strm_cons(x0, filter(xs))
-end
+end (*let*)
 ) where
 {
-fun filter(xs) =
+//
+fun
+filter(xs) =
 $lazy(
 let
 val xs = $eval(xs)
@@ -35,7 +37,8 @@ if
 (x1%x0 = 0)
 then $eval(filter(xs)) else strm_cons(x1, filter(xs))
 end (*let*)
-)
+) (*$lazy*) // end of [filter(xs)]
+//
 }
 )
 
