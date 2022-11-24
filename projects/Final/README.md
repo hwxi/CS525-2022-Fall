@@ -1,6 +1,6 @@
 # Final for CS525, Fall,
 
-The final is due Monday, the 12th of November.  The precise due
+The final is due Monday, the 12th of December.  The precise due
 time is 11:59pm of the due day.
 
 All of your code should be stored in the Final/MySolution directory.
@@ -17,5 +17,7 @@ me ASAP.
 ## Task 2: Performing Closure-Conversion for LAMBDA
 
 ## Task 3: Writing a term paper on your final project
+Typically, the term paper is about 10 page long.
 
 ## Task 4: Recording a presentation based on your term paper
+Typically, the recording is about 20 minute long.
