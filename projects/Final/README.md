@@ -15,9 +15,10 @@ me ASAP.
 ## Task 1: Supporting Lazy-Evaluation in LAMBDA
 
 Note that the keyword `$lazy` corresponds to `$delay` in ATS.  The
-parser translates `$lazy(...)` into a syntax of the form `T1Mlazy(...)`.
-There is also a special function `$eval` of `lazy(X) -> X` that forces
-the evaluation of a lazy-value. Note that `$eval(xs)` corresponds to `!xs` in ATS.
+parser translates `$lazy(...)` into a syntax tree of the form
+`T1Mlazy(...)`.  There is also a special function `$eval` of the type
+`lazy(X) -> X` that forces the evaluation of a given lazy-value. Note
+that `$eval(xs)` corresponds to `!xs` in ATS.
 
 ### Primitive Operators for Processing Streams:
 
