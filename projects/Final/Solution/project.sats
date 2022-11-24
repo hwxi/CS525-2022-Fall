@@ -144,6 +144,9 @@ T1Mfix of
 , t1erm, t1ypeopt(*res*))
 //
 |
+T1Mlazy of (t1erm)
+//
+|
 T1Manno of (t1erm, t1ype(*anno*))
 |
 T1Mnone of (d1exp(*unsupported*))

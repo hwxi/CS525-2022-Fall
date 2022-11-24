@@ -108,6 +108,10 @@ fprint!
 , t1vf, ";", t1vx, ";", targ, ";", t1m1, ";", tres, ")")
 //
 |
+T1Mlazy(t1m1) =>
+fprint!(out, "T1Mlazy(", t1m1, ")")
+//
+|
 T1Manno(t1m1, t1p2) =>
 fprint!(out, "T1Manno(", t1m1, ";", t1p2, ")")
 //

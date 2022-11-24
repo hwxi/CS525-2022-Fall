@@ -817,6 +817,18 @@ t1m2 = trans1m_d1exp(d1e2)
 |
 Some(opnm) =>
 (
+case+ opnm of
+//
+| "$lazy" =>
+(
+T1Mlazy(t1m2)) where
+{
+val
+t1m2 = trans1m_d1exp(d1e2)
+} (*where*) // end-of-($lazy)
+//
+| _(*rest*) =>
+(
 T1Mopr(opnm, t1ms)) where
 {
 val t1ms =
@@ -829,12 +841,14 @@ D1El1st(d1es) =>
 trans1m_d1explst(d1es)
 |
 _(*non-D1Elist*) =>
-mylist_sing(trans1m_d1exp(d1e2))
+(
+mylist_sing
+(trans1m_d1exp(d1e2))))
+: t1ermlst // end-of-val(t1ms)
+} (*where*) // end of [(*rest*)]
+)
 //
-) : t1ermlst // end-of-val(t1ms)
-}
-//
-end // end of [f0_app1]
+end (*let*) // end of [f0_app1(d1e0)]
 
 (* ****** ****** *)
 
