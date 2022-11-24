@@ -12,14 +12,14 @@ If you midterm project is unfinished, please finish it first. If you need
 help to do so or just have some questions, please do not hesitate to contact
 me ASAP.
 
-## Task 1: Supporting lazy-evaluation in LAMBDA
+## Task 1: Supporting Lazy-Evaluation in LAMBDA
 
 Note that the keyword `$lazy` corresponds to `$delay` in ATS.  The
 parser translates `$lazy(...)` into a syntax of the form `T1Mlazy(...)`.
 There is also a special function `$eval` of `lazy(X) -> X` that forces
 the evaluation of a lazy-value. Note that `$eval(xs)` corresponds to `!xs` in ATS.
 
-### Primitive Operators for processing streams:
+### Primitive Operators for Processing Streams:
 
   * `strm_nil`: () -> strm(X) // strm-nil
   * `strm_cons`: (X, lazy(strm(X))) -> strm(X) // strm-cons
@@ -27,6 +27,11 @@ the evaluation of a lazy-value. Note that `$eval(xs)` corresponds to `!xs` in AT
   * `strm_consq`: strm(X) -> bool // strm-cons-test
   * `strm_uncons1`: strm(X) -> X // strm-head
   * `strm_uncons2`: strm(X) -> lazy(strm(X)) // strm-tail
+
+Note that a stream containing elements of type `X` is given the
+type `lazy(strm(X))`. The type `strm` corresponds to `stream_con` in ATS.
+In terms of functionality, these stream operators behave in the same way as
+their list counterparts.
 
 
 ## Task 2: Performing Closure-Conversion for LAMBDA
