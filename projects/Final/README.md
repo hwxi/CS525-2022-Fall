@@ -14,6 +14,21 @@ me ASAP.
 
 ## Task 1: Supporting lazy-evaluation in LAMBDA
 
+Note that the keyword $lazy corresponds to $delay in ATS.
+The parser translates `$lazy(...)` into T1Mlazy(...). There is also
+a special function `$eval` of `lazy(X) -> X` that forces the evaluation
+of a lazy-value. Note that `$eval(xs)` corresponds to `!xs` in ATS.
+
+### Primitive Operators for processing streams:
+
+  * `strm_nil`: () -> strm(X) // strm-nil
+  * `strm_cons`: (X, lazy(strm(X))) -> strm(X) // strm-cons
+  * `strm_nilq`: strm(X) -> bool // strm-nil-test
+  * `strm_consq`: strm(X) -> bool // strm-cons-test
+  * `strm_uncons1`: strm(X) -> X // strm-head
+  * `strm_uncons2`: strm(X) -> lazy(strm(X)) // strm-tail
+
+
 ## Task 2: Performing Closure-Conversion for LAMBDA
 
 ## Task 3: Writing a term paper on your final project

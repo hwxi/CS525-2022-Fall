@@ -63,8 +63,9 @@ auxmain
 lam(i0) =>
 lam(n0): void =>
 if
-(i0 < n0)
+(i0 >= n0)
 then
+print(",...") else
 (
 let
   val xs = $eval(xs)
