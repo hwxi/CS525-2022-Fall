@@ -11,35 +11,38 @@ $lazy
 fun
 sieve
 (
-xs: lazy(strm(int))
-) : lazy(strm(int)) =
-$lazy
-(
+xs
+: lazy(strm(int))
+)
+: lazy(strm(int)) = $lazy
 let
-val xs = $eval(xs)
-vla x0 = strm_uncons1(xs)
-vla xs = strm_uncons2(xs)
+  val xs = $eval(xs)
+  val x0 = strm_uncons1(xs)
+  val xs = strm_uncons2(xs)
 in//let
-strm_cons(x0, filter(xs))
-end (*let*)
-) where
+(
+strm_cons
+( x0
+, sieve(filter(xs)))) where
 {
 //
 fun
-filter(xs) =
-$lazy(
+filter(xs) = $lazy
+(
 let
 val xs = $eval(xs)
 val x1 = strm_uncons1(xs)
 val xs = strm_uncons2(xs)
-in
+in//let
 if
 (x1%x0 = 0)
-then $eval(filter(xs)) else strm_cons(x1, filter(xs))
-end (*let*)
-) (*$lazy*) // end of [filter(xs)]
+then $eval(filter(xs))
+else strm_cons(x1, filter(xs))
+end (*let*) // end-of-[filter(xs)]
+) (*$lazy*)
 //
-} (*where*) // end of [ sieve(xs) ]
+} (*where*)
+end (*let*) // end of [ sieve(xs) ]
 
 (* ****** ****** *)
 //
@@ -49,7 +52,7 @@ ints_print
 : lazy
   (strm(int))): void =
 (
-auxmain(xs)( 0)(10)) where
+auxmain(xs)( 0)(99)) where
 {
 //
 fun
@@ -75,7 +78,7 @@ in
       val x1 = strm_uncons1(xs)
       val xs = strm_uncons2(xs)
     in
-      if i0 > 0 then (print(","); print(x1); auxmain(xs)(i0+1)(n0))
+      (if i0 > 0 then print(","); print(x1); auxmain(xs)(i0+1)(n0))
     end
   // end-of-[if]
 end
@@ -83,6 +86,13 @@ end
 //
 } (*where*) // end of [ ints_print(xs) ]
 //
+(* ****** ****** *)
+
+val _ =
+(ints_print(ints_from(2)); print("\n")
+val _ =
+(ints_print(sieve(ints_from(2))); print("\n"))
+
 (* ****** ****** *)
 
 (* end of [CS525-2022-Fall/Final_project_TEST_lazy.dats] *)
